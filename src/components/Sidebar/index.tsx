@@ -5,8 +5,8 @@ import ClassIcon from "../../assets/class.svg";
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const data = [
-    { _id: 1, name: "אולפנה" },
-    { _id: 2, name: "תיכון" },
+    { _id: 1, name: "כיתה א" },
+    { _id: 2, name: "כיתה ב" },
   ];
 
   return (

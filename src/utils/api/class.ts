@@ -1,9 +1,8 @@
-import { Class } from "../../types/entities/class";
 import { fetchRequest } from "../fetch";
 
 export const getClassById = async (id: string | undefined) => {
   if (id) {
-    const classById = await fetchRequest(`/api/schoolClass/${id}`, {
+    const classById = await fetchRequest(`/school-class/${id}`, {
       method: "GET",
     });
 
@@ -14,7 +13,7 @@ export const getClassById = async (id: string | undefined) => {
 };
 
 export const getClasses = async () => {
-  const classes = await fetchRequest("/api/schoolClass", {
+  const classes = await fetchRequest("/school-class", {
     method: "GET",
   });
 

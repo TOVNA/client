@@ -1,9 +1,6 @@
 import React from "react";
 import Style from "./Content.module.css";
-import { useSelectedClassId } from "../SelectedClassContext/SelectedClassContext";
 import { useSelectedClass } from "../../utils/customHooks/queries/useSelectedClass";
-import { CompactTable } from "@table-library/react-table-library/compact";
-import { useStudentsByClass } from "../../utils/customHooks/queries/useStudents";
 
 interface ContentProps {}
 
@@ -19,22 +16,29 @@ const COLUMNS = [
 ];
 
 const Content: React.FC<ContentProps> = ({}) => {
-  const { selectedClassId } = useSelectedClassId();
-
   const { data: selectedClass } = useSelectedClass();
-  const { data: students } = useStudentsByClass(selectedClassId);
 
-  if (!selectedClassId) {
+  if (!selectedClass) {
     return <div>בחר כיתה</div>;
   }
 
   return (
     <div className={Style.content}>
       <div className={Style.contentTitle}>
-        {selectedClass ? `התלמידים של כיתה ${selectedClass.grade}` : "בחר כיתה"}
+        {selectedClass ? `התלמידים של ${selectedClass.grade}` : "בחר כיתה"}
       </div>
       <div className={Style.scrollContainer}>
-        <CompactTable columns={COLUMNS} data={students} />
+        {/* <CompactTable columns={COLUMNS} data={selectedClass.studentIds} /> */}
+        {selectedClass.studentIds.map((student) => (
+          <div key={student._id} className={Style.student}>
+            <div className={Style.studentName}>
+              {student.first_name} {student.last_name}
+            </div>
+            <div className={Style.studentBirthDate}>
+              {new Date(student.birth_date).toLocaleDateString("he-IL")}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import Login from "../../pages/Login";
 import ProtectedRoute from "../ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 import MainPage from "../../pages/MainPage/MainPage";
+import { SelectedClassContextProvider } from "../SelectedClassContext/SelectedClassContext";
 
 export const App: React.FC = ({}) => {
   return (
@@ -31,6 +32,7 @@ export const App: React.FC = ({}) => {
             <Route path="*" element={<Login />} />
           </Routes>
         </div>
+      </SelectedClassContextProvider>
     </AuthProvider>
   );
 };

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import styles from "./Sidebar.module.css";
 import ClassIcon from "../../assets/class.svg";
+import { useSelectedClassId } from "../SelectedClassContext/SelectedClassContext";
+import { useClasses } from "../../utils/customHooks/queries/useClasses";
+import { Class } from "../../types/entities/class";
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const data = [
-    { _id: 1, name: "אולפנה" },
-    { _id: 2, name: "תיכון" },
-  ];
+  const { setSelectedClassId } = useSelectedClassId();
+  const { data: classes = [] } = useClasses();
 
   return (
     <>
@@ -25,9 +26,13 @@ const Sidebar = () => {
               isExpanded ? styles.sectionContentOpen : ""
             }`}
           >
-            {data.map(({ _id, name }) => (
-              <div key={_id} className={styles.item}>
-                {name}
+            {(classes as Class[]).map(({ _id, grade }) => (
+              <div
+                key={_id}
+                className={styles.item}
+                onClick={() => setSelectedClassId(_id)}
+              >
+                {grade}
               </div>
             ))}
           </div>

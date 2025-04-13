@@ -5,6 +5,9 @@
 }
 
 .content {
-  margin-right: 300px;
-  margin-top: 64px;
+  position: fixed;
+  top: 64px;
+  right: 300px;
+  left: 16px;
+  bottom: 16px;
 }

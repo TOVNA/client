@@ -8,6 +8,7 @@ import ProtectedRoute from "../ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 import MainPage from "../../pages/MainPage/MainPage";
 import { SelectedClassContextProvider } from "../SelectedClassContext/SelectedClassContext";
+import "../../setupTable";
 
 export const App: React.FC = ({}) => {
   return (

@@ -1,17 +1,29 @@
 import React from "react";
 import Style from "./Content.module.css";
 import { useSelectedClass } from "../../utils/customHooks/queries/useSelectedClass";
+import { AgGridReact } from "ag-grid-react";
+import { ColDef } from "ag-grid-community";
+import { tableTheme } from "../../setupTable";
+import FullScreenMessage from "../FullScreenMessage/FullScreenMessage";
 
 interface ContentProps {}
 
-const COLUMNS = [
+const COLUMNS: ColDef[] = [
   {
-    label: "שם התלמיד",
-    renderCell: (item) => item.first_name + " " + item.last_name,
+    headerName: "שם התלמיד",
+    colId: "fullName",
+    cellRenderer: (params) =>
+      `${params.data.first_name} ${params.data.last_name}`,
+    flex: 1,
+    resizable: false,
   },
   {
-    label: "תאריך לידה",
-    renderCell: (item) => item.birth_date,
+    headerName: "תאריך לידה",
+    colId: "birthDate",
+    cellRenderer: (params) =>
+      new Date(params.data.birth_date).toLocaleDateString("he-IL"),
+    flex: 1,
+    resizable: false,
   },
 ];
 
@@ -19,7 +31,12 @@ const Content: React.FC<ContentProps> = ({}) => {
   const { data: selectedClass } = useSelectedClass();
 
   if (!selectedClass) {
-    return <div>בחר כיתה</div>;
+    return (
+      <FullScreenMessage
+        title="לא נבחרה כיתה"
+        message="בחר כיתה מהתפריט על מנת לראות את התלמידים"
+      />
+    );
   }
 
   return (
@@ -28,17 +45,21 @@ const Content: React.FC<ContentProps> = ({}) => {
         {selectedClass ? `התלמידים של ${selectedClass.grade}` : "בחר כיתה"}
       </div>
       <div className={Style.scrollContainer}>
-        {/* <CompactTable columns={COLUMNS} data={selectedClass.studentIds} /> */}
-        {selectedClass.studentIds.map((student) => (
-          <div key={student._id} className={Style.student}>
-            <div className={Style.studentName}>
-              {student.first_name} {student.last_name}
-            </div>
-            <div className={Style.studentBirthDate}>
-              {new Date(student.birth_date).toLocaleDateString("he-IL")}
-            </div>
-          </div>
-        ))}
+        <div style={{ width: "100%", height: "100%" }}>
+          <AgGridReact
+            theme={tableTheme}
+            rowData={selectedClass.studentIds}
+            columnDefs={COLUMNS}
+            domLayout="autoHeight"
+            defaultColDef={{
+              flex: 1,
+              sortable: true,
+            }}
+            noRowsOverlayComponent={() => (
+              <div style={{ textAlign: "center" }}>אין תלמידים בכיתה</div>
+            )}
+          />
+        </div>
       </div>
     </div>
   );

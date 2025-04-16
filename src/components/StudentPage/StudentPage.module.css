@@ -1,0 +1,8 @@
+.details {
+  display: flex;
+}
+
+.date {
+  margin-right: 0.25rem;
+  color: #7D7D7D;
+}

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./Sidebar.module.css";
 import ClassIcon from "../../assets/class.svg";
 import { useSelectedClassId } from "../SelectedClassContext/SelectedClassContext";
 import { useClasses } from "../../utils/customHooks/queries/useClasses";
 import { Class } from "../../types/entities/class";
+import { useSelectedStudentId } from "../SelectedStudentContext/SelectedStudentContext";
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { selectedClassId, setSelectedClassId } = useSelectedClassId();
+  const { setSelectedStudentId } = useSelectedStudentId();
   const { data: classes = [] } = useClasses();
 
   return (
@@ -31,7 +33,10 @@ const Sidebar = () => {
               className={`${styles.item} ${
                 _id === selectedClassId ? styles.selected : ""
               }`}
-              onClick={() => setSelectedClassId(_id)}
+              onClick={() => {
+                setSelectedClassId(_id);
+                setSelectedStudentId(undefined);
+              }}
             >
               {grade}
             </div>

@@ -9,30 +9,34 @@ import { Toaster } from "react-hot-toast";
 import MainPage from "../../pages/MainPage/MainPage";
 import { SelectedClassContextProvider } from "../SelectedClassContext/SelectedClassContext";
 import "../../setupTable";
+import { SelectedStudentContextProvider } from "../SelectedStudentContext/SelectedStudentContext";
 
 export const App: React.FC = ({}) => {
   return (
     <AuthProvider>
-        <div className={Style.app}>
-          <Toaster
-            position="bottom-right"
-            toastOptions={{
-              style: {
-                backgroundColor: "#1f1f1f",
-                color: 'white'
-              },
-            }}
-          />
-          <Routes>
-            <Route element={<ProtectedRoute />}>
-              <Route path="/" element={<MainPage />} />
-              <Route path="*" element={<MainPage />} />
-            </Route>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Login />} />
-          </Routes>
-        </div>
+      <SelectedClassContextProvider>
+        <SelectedStudentContextProvider>
+          <div className={Style.app}>
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                style: {
+                  backgroundColor: "#1f1f1f",
+                  color: "white",
+                },
+              }}
+            />
+            <Routes>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<MainPage />} />
+                <Route path="*" element={<MainPage />} />
+              </Route>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="*" element={<Login />} />
+            </Routes>
+          </div>
+        </SelectedStudentContextProvider>
       </SelectedClassContextProvider>
     </AuthProvider>
   );

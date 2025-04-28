@@ -1,0 +1,13 @@
+.adminPage {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  position: fixed;
+  top: 64px;
+  right: 300px;
+  left: 16px;
+  bottom: 16px;
+}

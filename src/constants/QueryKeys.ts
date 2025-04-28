@@ -9,4 +9,6 @@ export const QUERY_KEYS = {
   STUDENTS: "students",
   STUDENTS_BY_CLASS_ID: (id: string) => `students-${id}`,
   STUDENT_BY_ID: (id: string) => `student-${id}`,
+  TEACHERS: "teachers",
+  TEACHER_BY_ID: (id: string) => `teacher-${id}`,
 } as const;

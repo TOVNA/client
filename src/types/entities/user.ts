@@ -1,9 +1,16 @@
+export enum UserRole {
+  ADMIN = "admin",
+  HOMEROOM = "homeroom",
+  teacher = "teacher",
+}
+
 export interface UserEntity {
   _id: string;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  image: string
+  first_name: string;
+  last_name: string;
+  user_name: string;
+  role: UserRole;
+  image: string;
 }
 
 export interface UserData extends UserEntity {

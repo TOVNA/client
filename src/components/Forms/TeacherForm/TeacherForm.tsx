@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +25,7 @@ interface TeacherFormInputs {
 
 export const TeacherForm: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { data: teacherInfo, isLoading } = useTeachers(id || "");
   const {
     register,
@@ -45,6 +46,7 @@ export const TeacherForm: React.FC = () => {
         types: data.role,
       },
     });
+    navigate("/admin/teachers");
   };
 
   useEffect(() => {

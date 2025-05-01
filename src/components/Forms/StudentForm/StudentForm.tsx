@@ -70,7 +70,6 @@ export const StudentForm: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(studentInfo);
     if (studentInfo) {
       reset({
         firstName: studentInfo.first_name,

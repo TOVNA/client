@@ -1,3 +1,4 @@
+import { Student } from "./student";
 import { UserEntity } from "./user";
 
 export interface Class {
@@ -5,5 +6,5 @@ export interface Class {
   grade: string;
   classNumber: number;
   homeroomTeacherId: UserEntity;
-  studentIds: string[];
+  studentIds: Student[];
 }

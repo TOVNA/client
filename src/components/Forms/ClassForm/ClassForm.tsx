@@ -5,8 +5,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Style from "./ClassForm.module.css";
 import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
-import { useStudentMutations } from "../../../utils/customHooks/mutations/useStudentMutations";
-import { StudentInfo } from "../../../types/entities/student";
 import { useClasses } from "../../../utils/customHooks/queries/useClasses";
 import { Class } from "../../../types/entities/class";
 import { useTeachers } from "../../../utils/customHooks/queries/useTeachers";
@@ -39,8 +37,6 @@ export const ClassForm: React.FC = () => {
   const { data: classInfo, isLoading } = useClasses(id || "");
   const { data: teachers } = useTeachers();
   const { data: students } = useAllStudents();
-  // const { data: classes } = useClasses();
-
 
   const aligbleStudents = students?.filter(
     (student) => student.class_id === null || student.class_id?._id === id
@@ -57,25 +53,26 @@ export const ClassForm: React.FC = () => {
   });
   const navigate = useNavigate();
 
-  const { createStudentMutation, updateStudentMutation } =
-    useStudentMutations();
+  // const { createStudentMutation, updateStudentMutation } =
+  //   useStudentMutations();
 
   const onSubmit = (data: ClassFormInputs) => {
-    console.log(data);
-    const student: StudentInfo = {
-      first_name: data.firstName,
-      last_name: data.lastName,
-      birth_date: new Date(data.birthDate),
-      class_id: data.classId || null,
-    };
+    // TODO
+    // console.log(data);
+    // const student: StudentInfo = {
+    //   first_name: data.firstName,
+    //   last_name: data.lastName,
+    //   birth_date: new Date(data.birthDate),
+    //   class_id: data.classId || null,
+    // };
 
-    if (id) {
-      updateStudentMutation.mutate({ id, data: student });
-    } else {
-      createStudentMutation.mutate(student);
-    }
+    // if (id) {
+    //   updateStudentMutation.mutate({ id, data: student });
+    // } else {
+    //   createStudentMutation.mutate(student);
+    // }
 
-    navigate(`/admin/students`);
+    // navigate(`/admin/students`);
     // updateTeacher({
     //   id: id || "",
     //   data: {
@@ -87,7 +84,6 @@ export const ClassForm: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(classInfo);
     if (classInfo) {
       const schoolClass = classInfo as Class;
       reset({

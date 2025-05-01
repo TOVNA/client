@@ -12,6 +12,7 @@ interface AdminTableProps {
   navigateToPrefix: string;
   title: string;
   isLoading: boolean;
+  titleButton?: React.ReactNode;
 }
 
 export const AdminTable: React.FC<AdminTableProps> = ({
@@ -20,6 +21,7 @@ export const AdminTable: React.FC<AdminTableProps> = ({
   navigateToPrefix,
   title,
   isLoading,
+  titleButton,
 }) => {
   const navigate = useNavigate();
 
@@ -30,21 +32,26 @@ export const AdminTable: React.FC<AdminTableProps> = ({
 
   return (
     <div className={styles.adminTableContainer}>
-      <div className={styles.tableTitle}>{title}</div>
-      <AgGridReact
-        loading={isLoading}
-        loadingOverlayComponent={LoadingSpinner}
-        theme={tableTheme}
-        rowData={rowsData}
-        columnDefs={columns}
-        domLayout="autoHeight"
-        defaultColDef={{
-          flex: 1,
-          sortable: true,
-          resizable: true,
-        }}
-        onRowClicked={onRowClicked}
-      />
+      <div className={styles.tableTitle}>
+        <div className={styles.title}>{title}</div>
+        {titleButton}
+      </div>
+      <div className={styles.tableWrapper}>
+        <AgGridReact
+          loading={isLoading}
+          loadingOverlayComponent={LoadingSpinner}
+          theme={tableTheme}
+          rowData={rowsData}
+          columnDefs={columns}
+          domLayout="autoHeight"
+          defaultColDef={{
+            flex: 1,
+            sortable: true,
+            resizable: true,
+          }}
+          onRowClicked={onRowClicked}
+        />
+      </div>
     </div>
   );
 };

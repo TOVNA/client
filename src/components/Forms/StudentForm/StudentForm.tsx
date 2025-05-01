@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Style from "./StudentForm.module.css";
@@ -10,6 +10,7 @@ import { useStudentMutations } from "../../../utils/customHooks/mutations/useStu
 import { StudentInfo } from "../../../types/entities/student";
 import { useClasses } from "../../../utils/customHooks/queries/useClasses";
 import { Class } from "../../../types/entities/class";
+import Select from "react-select";
 
 const schema = z.object({
   firstName: z.string().min(1, "שם פרטי הוא שדה חובה"),
@@ -44,6 +45,7 @@ export const StudentForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    control
   } = useForm<StudentFormInputs>({
     resolver: zodResolver(schema),
   });
@@ -118,14 +120,31 @@ export const StudentForm: React.FC = () => {
         </div>
         <div className={Style.inputGroup}>
           <label htmlFor="classId">כיתה</label>
-          <select id="classId" {...register("classId")}>
-            <option value="">ללא כיתה</option>
-            {(classes as Class[])?.map((cls) => (
-              <option key={cls._id} value={cls._id}>
-                {cls.grade}
-              </option>
-            ))}
-          </select>
+          <Controller
+            name="classId"
+            control={control}
+            render={({ field }) => (
+              <Select
+                inputId="classId"
+                isClearable
+                placeholder="ללא כיתה"
+                classNamePrefix="react-select"
+                options={(classes as Class[]).map((cls) => ({
+                  value: cls._id,
+                  label: cls.grade,
+                }))}
+                value={
+                  (classes as Class[])
+                    .map((cls) => ({
+                      value: cls._id,
+                      label: cls.grade,
+                    }))
+                    .find((option) => option.value === field.value) || null
+                }
+                onChange={(selected) => field.onChange(selected?.value || "")}
+              />
+            )}
+          />
         </div>
         <button type="submit" className={Style.button}>
           שמירה

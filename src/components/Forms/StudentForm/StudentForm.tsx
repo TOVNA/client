@@ -129,13 +129,13 @@ export const StudentForm: React.FC = () => {
                 isClearable
                 placeholder="ללא כיתה"
                 classNamePrefix="react-select"
-                options={(classes as Class[]).map((cls) => ({
+                options={(classes as Class[])?.map((cls) => ({
                   value: cls._id,
                   label: cls.grade,
                 }))}
                 value={
                   (classes as Class[])
-                    .map((cls) => ({
+                    ?.map((cls) => ({
                       value: cls._id,
                       label: cls.grade,
                     }))

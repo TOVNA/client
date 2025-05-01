@@ -14,7 +14,7 @@ export const StudentsTable = () => {
   const studentsData = useMemo(() => {
     return (students as Student[]).map((student) => ({
       name: `${student.first_name} ${student.last_name}`,
-      age: new Date(student.birth_date).toLocaleDateString("he-IL"),
+      birthDate: new Date(student.birth_date).toLocaleDateString("he-IL"),
       grade: student?.class_id?.grade || "*ללא כיתה*",
       id: student._id,
     }));
@@ -22,7 +22,7 @@ export const StudentsTable = () => {
 
   const columns: ColDef[] = [
     { headerName: "כיתה", field: "grade", flex: 1 },
-    { headerName: "תאריך לידה", field: "age", flex: 1 },
+    { headerName: "תאריך לידה", field: "birthDate", flex: 1 },
     { headerName: "שם מלא", field: "name", flex: 1 },
   ];
 

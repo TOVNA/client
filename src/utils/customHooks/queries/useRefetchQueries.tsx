@@ -13,10 +13,12 @@ export const useRefetchQueries = () => {
   const refetchPosts = () => refetchQuery([QUERY_KEYS.POSTS]);
   const refetchPostsByUser = (userId: UserEntity["_id"]) =>
     refetchQuery([QUERY_KEYS.POSTS_BY_USER(userId)]);
+  const refetchTeachers = () => refetchQuery([QUERY_KEYS.TEACHERS]);
 
   return {
     refetchUserById,
     refetchPosts,
     refetchPostsByUser,
+    refetchTeachers,
   };
 };

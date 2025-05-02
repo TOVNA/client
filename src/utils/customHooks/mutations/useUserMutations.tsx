@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { updateUser } from "../../api/user";
+import { register } from "../../api/auth";
 import { useRefetchQueries } from "../queries/useRefetchQueries";
 
 export const useUserMutations = () => {
@@ -13,5 +14,11 @@ export const useUserMutations = () => {
     },
   });
 
-  return { updateUserMutation };
+  const createUserMutation = useMutation(register, {
+    onSuccess: (data) => {
+      refetchUserById(data._id);
+    },
+  });
+
+  return { updateUserMutation, createUserMutation };
 };

@@ -5,8 +5,13 @@ import {
   useLayoutEffect,
   useCallback,
   useEffect,
+  useMemo,
 } from "react";
-import { UserData, UserRegisterData } from "../../types/entities/user";
+import {
+  UserData,
+  UserRegisterData,
+  UserRole,
+} from "../../types/entities/user";
 import { useNavigate } from "react-router-dom";
 import { useRegister } from "../../utils/customHooks/mutations/useRegister";
 import { useLogin } from "../../utils/customHooks/mutations/useLogin";
@@ -18,6 +23,7 @@ import toast from "react-hot-toast";
 interface AuthContextType {
   user: UserData | null;
   token: string;
+  isAdmin: boolean;
   register: (user: UserRegisterData) => void;
   registerGoogle: (credential: string) => void;
   login: (user: UserData) => void;
@@ -36,6 +42,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const { mutate: registerGoogleMutation } = useRegisterGoogle();
   const { mutate: loginMutation } = useLogin();
   const { mutate: logoutMutation } = useLogout();
+
+  const isAdmin = useMemo(() => user?.role === UserRole.ADMIN, [user?.role]);
 
   const register = (user: UserRegisterData) => {
     registerMutation(user, {
@@ -167,7 +175,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ user, token, register, registerGoogle, login, logout }}
+      value={{ user, token, isAdmin, register, registerGoogle, login, logout }}
     >
       {children}
     </AuthContext.Provider>

@@ -10,8 +10,20 @@ import MainPage from "../../pages/MainPage/MainPage";
 import { SelectedClassContextProvider } from "../SelectedClassContext/SelectedClassContext";
 import "../../setupTable";
 import { SelectedStudentContextProvider } from "../SelectedStudentContext/SelectedStudentContext";
+import { AdminPage } from "../../pages/AdminPage/AdminPage";
+import { TeacherForm } from "../Forms/TeacherForm/TeacherForm";
+import { TeachersTable } from "../TeachersTable";
 
 export const App: React.FC = ({}) => {
+  // const { isAdmin, user } = useAuth();
+  // const location = useLocation();
+
+  // const RedirectAdmin = ({ children }) => {
+  //   if (user && isAdmin && location.pathname === "/") {
+  //     return <Navigate to="/admin" replace />;
+  //   }
+  // };
+
   return (
     <AuthProvider>
       <SelectedClassContextProvider>
@@ -26,8 +38,17 @@ export const App: React.FC = ({}) => {
                 },
               }}
             />
+            {/* <RedirectAdmin> */}
             <Routes>
               <Route element={<ProtectedRoute />}>
+                <Route path="/admin" element={<AdminPage />}>
+                  <Route path="teachers" element={<TeachersTable />} />
+                  {/* <Route path="students" element={<AdminTable />} /> */}
+                  {/* <Route path="classes" element={<AdminTable />} /> */}
+                  <Route path="teacher" element={<TeacherForm />} />
+                  <Route path="teacher/:id" element={<TeacherForm />} />
+                  <Route path="*" element={<AdminPage />} />
+                </Route>
                 <Route path="/" element={<MainPage />} />
                 <Route path="*" element={<MainPage />} />
               </Route>
@@ -35,6 +56,7 @@ export const App: React.FC = ({}) => {
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<Login />} />
             </Routes>
+            {/* </RedirectAdmin> */}
           </div>
         </SelectedStudentContextProvider>
       </SelectedClassContextProvider>

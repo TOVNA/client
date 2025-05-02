@@ -21,3 +21,12 @@ export const updateUser = async (user: UserEntity) => {
 
   return updatedUser;
 };
+
+export const createUser = async (user: UserEntity) => {
+  const newUser = await fetchRequest(`/user`, {
+    method: "POST",
+    body: JSON.stringify(user),
+  });
+
+  return newUser;
+};

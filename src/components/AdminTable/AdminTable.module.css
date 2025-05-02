@@ -6,4 +6,20 @@
 .tableTitle {
   font-size: 20px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  margin-left: 0.5rem;
+}
+
+.tableWrapper {
+  max-height: 37rem;
+  overflow-y: auto;
+}
+
+.tableWrapper .ag-center-cols-viewport {
+  overflow-y: auto !important;
 }

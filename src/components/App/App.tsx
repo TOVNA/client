@@ -45,6 +45,7 @@ export const App: React.FC = ({}) => {
                   <Route path="teachers" element={<TeachersTable />} />
                   {/* <Route path="students" element={<AdminTable />} /> */}
                   {/* <Route path="classes" element={<AdminTable />} /> */}
+                  <Route path="teacher" element={<TeacherForm />} />
                   <Route path="teacher/:id" element={<TeacherForm />} />
                   <Route path="*" element={<AdminPage />} />
                 </Route>

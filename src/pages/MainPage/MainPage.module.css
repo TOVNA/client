@@ -5,6 +5,7 @@
 }
 
 .content {
+  overflow-y: auto;
   position: fixed;
   top: 64px;
   right: 300px;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
-import { ColDef } from "ag-grid-community";
+import { ColDef, RowClickedEvent } from "ag-grid-community";
 import { tableTheme } from "../../setupTable";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import styles from "./AdminTable.module.css";
@@ -25,7 +25,8 @@ export const AdminTable: React.FC<AdminTableProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const onRowClicked = (row: any) => {
+  const onRowClicked = (row: RowClickedEvent<any, any>) => {
+    if (row.event?.defaultPrevented) return;
     const { id } = row.data;
     navigate(`${navigateToPrefix}/${id}`);
   };

@@ -1,4 +1,5 @@
 import { Teacher } from "../../types/entities/teacher";
+import { UserData } from "../../types/entities/user";
 import { fetchRequest } from "../fetch";
 
 export const getTeachers = async () => {
@@ -32,6 +33,28 @@ export const updateTeacher = async ({
   const teacher = await fetchRequest(`/teachers/${id}`, {
     method: "PUT",
     body: JSON.stringify(data),
+  });
+
+  return teacher;
+};
+
+export type CreateTeacher = {
+  userId: Pick<Teacher["userId"], "first_name" | "last_name" | "role"> &
+    Pick<UserData, "email">;
+  types: Teacher["types"];
+};
+export const createTeacher = async (data: CreateTeacher) => {
+  const teacher = await fetchRequest("/teachers", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+  return teacher;
+};
+
+export const deleteTeacher = async (id: string) => {
+  const teacher = await fetchRequest(`/teachers/${id}`, {
+    method: "DELETE",
   });
 
   return teacher;

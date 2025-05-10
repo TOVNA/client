@@ -44,3 +44,11 @@ export const updateStudent = async ({
 
   return teacher;
 };
+
+export const deleteStduent = async (id: string) => {
+  const deletedClass = await fetchRequest(`/students/${id}`, {
+    method: "DELETE",
+  });
+
+  return deletedClass;
+};

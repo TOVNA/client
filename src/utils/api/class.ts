@@ -1,4 +1,4 @@
-import { Class, ClassPayload } from "../../types/entities/class";
+import { ClassPayload } from "../../types/entities/class";
 import { fetchRequest } from "../fetch";
 
 export const getClassById = async (id: string | undefined) => {
@@ -22,7 +22,7 @@ export const getClasses = async () => {
 };
 
 export const createClass = async (data: ClassPayload) => {
-  const createdClass = await fetchRequest(`/classes`, {
+  const createdClass = await fetchRequest(`/school-class`, {
     method: "POST",
     body: JSON.stringify(data),
   });
@@ -37,9 +37,17 @@ export const updateClass = async ({
   id: string;
   data: ClassPayload;
 }) => {
-  const updatedClass = await fetchRequest(`/classes/${id}`, {
+  const updatedClass = await fetchRequest(`/school-class/${id}`, {
     method: "PUT",
     body: JSON.stringify(data),
+  });
+
+  return updatedClass;
+};
+
+export const deleteClass = async ({ id }: { id: string }) => {
+  const updatedClass = await fetchRequest(`/school-class/${id}`, {
+    method: "DELETE",
   });
 
   return updatedClass;

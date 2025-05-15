@@ -1,19 +1,42 @@
-import React from "react";
-import { Student } from "../../types/entities/student";
+import { useEffect } from "react";
 import Style from "./StudentPage.module.css";
 import { calculateAgeDecimal } from "../../utils/date";
+import { useSelectedStudent } from "../../utils/customHooks/queries/useSelectedStudent";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { useNavigate, useParams } from "react-router-dom";
+import closeIcon from "../../assets/close.svg";
 
-interface StudentPageProps {
-  student: Student;
-}
+const StudentPage = () => {
+  const { id } = useParams<{ id: string }>();
+  const { data: student, isLoading, error } = useSelectedStudent(id);
+  const navigate = useNavigate();
+  const studentBirthDate = new Date(student?.birth_date || "");
 
-const StudentPage: React.FC<StudentPageProps> = ({ student }) => {
-  const studentBirthDate = new Date(student.birth_date);
+  useEffect(() => {
+    if (error?.status === 404) {
+      navigate("/not-found");
+    }
+  }, [error, navigate]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
-    <div>
+    <>
+      <div className={Style.contentTitle}>
+        {`תלמיד - ${student?.first_name} ${student?.last_name}`}
+        {student && (
+          <img
+            src={closeIcon}
+            className={Style.closeIcon}
+            alt="close-student"
+            onClick={() => navigate("/")}
+          />
+        )}
+      </div>
       <div className={Style.details}>
-        {student.birth_date && (
+        {student?.birth_date && (
           <>
             <h6>תאריך לידה:</h6>
             <div className={Style.date}>
@@ -26,7 +49,7 @@ const StudentPage: React.FC<StudentPageProps> = ({ student }) => {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

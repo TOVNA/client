@@ -4,12 +4,13 @@ import { useSelectedStudentId } from "../../../components/SelectedStudentContext
 import { getStudentById } from "../../api/student";
 import { Student } from "../../../types/entities/student";
 
-export const useSelectedStudent = () => {
+export const useSelectedStudent = (id?: string) => {
   const { selectedStudentId } = useSelectedStudentId();
+  const studentId = id || selectedStudentId;
 
   return useQuery<Student | undefined>(
-    [QUERY_KEYS.STUDENT_BY_ID(selectedStudentId || "")],
-    () => getStudentById(selectedStudentId),
+    [QUERY_KEYS.STUDENT_BY_ID(studentId || "")],
+    () => getStudentById(studentId),
     { keepPreviousData: true }
   );
 };

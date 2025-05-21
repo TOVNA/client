@@ -16,6 +16,7 @@ import { TeachersTable } from "../TeachersTable";
 import StudentPage from "../StudentPage";
 import Content from "../Content/Content";
 import NotFound from "../NotFound";
+import QuestionnaireAnswerPage from "../../pages/QuestionnaireAnswerPage/QuestionnaireAnswerPage";
 
 export const App: React.FC = ({}) => {
   // const { isAdmin, user } = useAuth();
@@ -62,6 +63,7 @@ export const App: React.FC = ({}) => {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<Login />} />
+              <Route path='/questionnaire-answers' element={<QuestionnaireAnswerPage />} />
             </Routes>
             {/* </RedirectAdmin> */}
           </div>

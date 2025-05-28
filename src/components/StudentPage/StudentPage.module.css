@@ -4,5 +4,15 @@
 
 .date {
   margin-right: 0.25rem;
-  color: #7D7D7D;
+  color: #7d7d7d;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+  height: 1.5rem;
 }

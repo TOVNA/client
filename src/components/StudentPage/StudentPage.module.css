@@ -16,3 +16,23 @@
 .icon {
   height: 1.5rem;
 }
+
+.contentTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.closeIcon {
+  @apply transition-all;
+  margin-right: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.closeIcon:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}

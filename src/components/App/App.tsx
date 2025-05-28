@@ -15,6 +15,8 @@ import { TeacherForm } from "../Forms/TeacherForm/TeacherForm";
 import { TeachersTable } from "../TeachersTable";
 import QuestionnairePage from "../../pages/Feedback";
 import Content from "../Content/Content";
+import StudentPage from "../StudentPage";
+import NotFound from "../NotFound";
 
 export const App: React.FC = ({}) => {
   // const { isAdmin, user } = useAuth();
@@ -54,6 +56,8 @@ export const App: React.FC = ({}) => {
                 <Route path="/" element={<MainPage />}>
                   <Route path="/" element={<Content />} />
                   <Route path="/feedback" element={<QuestionnairePage />} />
+                  <Route path="/student/:id" element={<StudentPage />} />
+                  <Route path="/not-found" element={<NotFound />} />
                 </Route>
                 <Route path="*" element={<MainPage />} />
               </Route>

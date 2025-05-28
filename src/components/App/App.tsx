@@ -13,6 +13,8 @@ import { SelectedStudentContextProvider } from "../SelectedStudentContext/Select
 import { AdminPage } from "../../pages/AdminPage/AdminPage";
 import { TeacherForm } from "../Forms/TeacherForm/TeacherForm";
 import { TeachersTable } from "../TeachersTable";
+import QuestionnairePage from "../../pages/Feedback";
+import Content from "../Content/Content";
 
 export const App: React.FC = ({}) => {
   // const { isAdmin, user } = useAuth();
@@ -49,7 +51,10 @@ export const App: React.FC = ({}) => {
                   <Route path="teacher/:id" element={<TeacherForm />} />
                   <Route path="*" element={<AdminPage />} />
                 </Route>
-                <Route path="/" element={<MainPage />} />
+                <Route path="/" element={<MainPage />}>
+                  <Route path="/" element={<Content />} />
+                  <Route path="/feedback" element={<QuestionnairePage />} />
+                </Route>
                 <Route path="*" element={<MainPage />} />
               </Route>
               <Route path="/register" element={<Register />} />

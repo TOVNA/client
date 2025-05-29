@@ -17,6 +17,7 @@ import StudentPage from "../StudentPage";
 import Content from "../Content/Content";
 import NotFound from "../NotFound";
 import QuestionnaireAnswerPage from "../../pages/QuestionnaireAnswerPage/QuestionnaireAnswerPage";
+import QuestionnaireAnswerDisplay from "../questionnaireContent/questionnaireContent";
 
 export const App: React.FC = ({}) => {
   // const { isAdmin, user } = useAuth();
@@ -63,7 +64,9 @@ export const App: React.FC = ({}) => {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<Login />} />
-              <Route path='/questionnaire-answers' element={<QuestionnaireAnswerPage />} />
+              <Route path='/questionnaire-answers' element={<QuestionnaireAnswerPage />} >
+                <Route index element={<QuestionnaireAnswerDisplay />} />
+              </Route>
             </Routes>
             {/* </RedirectAdmin> */}
           </div>

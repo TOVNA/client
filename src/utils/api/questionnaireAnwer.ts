@@ -11,3 +11,15 @@ export const getQuestionnaireAnwerById = async (id: string | undefined) => {
 
   return null;
 };
+
+export const getQuestionById = async (id: string | undefined) => {
+  if (id) {
+    const QuestionById = await fetchRequest(`/questions/${id}`, {
+      method: "GET",
+    });
+
+    return QuestionById;
+  }
+
+  return null;
+};

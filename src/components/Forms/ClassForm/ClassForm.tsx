@@ -11,16 +11,15 @@ import { useTeachers } from "../../../utils/customHooks/queries/useTeachers";
 import { Teacher } from "../../../types/entities/teacher";
 import { useAllStudents } from "../../../utils/customHooks/queries/useAllStudents";
 import Select from "react-select";
+import { useClassMutations } from "../../../utils/customHooks/mutations/useClassMutations";
+import { ClassPayload } from "../../../types/entities/class";
 
 const schema = z.object({
   grade: z.string().min(1, "שם כיתה הוא שדה חובה"),
-  classNumber: z
-    .string()
-    .min(1, "מספר כיתה הוא שדה חובה")
-    .transform((val) => parseInt(val, 10))
-    .refine((num) => !isNaN(num) && num >= 1, {
-      message: "מספר כיתה חייב להיות מספר תקין",
-    }),
+  classNumber: z.preprocess(
+    (val) => Number(val),
+    z.number().min(1, "מספר כיתה חייב להיות מספר תקין")
+  ),
   homeroomTeacherId: z.string().min(1, "מורה מחנך הוא שדה חובה"),
   studentIds: z.array(z.string()).optional(),
 });
@@ -39,7 +38,7 @@ export const ClassForm: React.FC = () => {
   const { data: students } = useAllStudents();
 
   const aligbleStudents = students?.filter(
-    (student) => student.class_id === null || student.class_id?._id === id
+    (student) => student.class === null || student.class?._id === id
   );
 
   const {
@@ -53,34 +52,21 @@ export const ClassForm: React.FC = () => {
   });
   const navigate = useNavigate();
 
-  // const { createStudentMutation, updateStudentMutation } =
-  //   useStudentMutations();
+  const { createClassMutation, updateClassMutation } = useClassMutations();
 
   const onSubmit = (data: ClassFormInputs) => {
-    // TODO
-    // console.log(data);
-    // const student: StudentInfo = {
-    //   first_name: data.firstName,
-    //   last_name: data.lastName,
-    //   birth_date: new Date(data.birthDate),
-    //   class_id: data.classId || null,
-    // };
-
-    // if (id) {
-    //   updateStudentMutation.mutate({ id, data: student });
-    // } else {
-    //   createStudentMutation.mutate(student);
-    // }
-
-    // navigate(`/admin/students`);
-    // updateTeacher({
-    //   id: id || "",
-    //   data: {
-    //     first_name: data.firstName,
-    //     last_name: data.lastName,
-    //     types: data.role,
-    //   },
-    // });
+    const schoolClass: ClassPayload = {
+      grade: data.grade,
+      classNumber: data.classNumber,
+      homeroomTeacherId: data.homeroomTeacherId,
+      studentIds: data.studentIds,
+    };
+    if (id) {
+      updateClassMutation.mutate({ id, data: schoolClass });
+    } else {
+      createClassMutation.mutate(schoolClass);
+    }
+    navigate(`/admin/classes`);
   };
 
   useEffect(() => {
@@ -90,7 +76,7 @@ export const ClassForm: React.FC = () => {
         grade: schoolClass.grade,
         classNumber: Number(schoolClass.classNumber),
         homeroomTeacherId: schoolClass.homeroomTeacherId?._id,
-        studentIds: schoolClass.studentIds.map((student) => student._id),
+        studentIds: schoolClass.studentIds?.map((student) => student._id),
       });
     }
   }, [classInfo, reset]);
@@ -98,6 +84,19 @@ export const ClassForm: React.FC = () => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+
+  const getSelectedHomeroomTeacher = (
+    homeroomTeacherId: Class["homeroomTeacherId"]["_id"]
+  ) => {
+    return homeroomTeacherId
+      ? (teachers as Teacher[])
+          ?.map((teacher) => ({
+            value: teacher.userId?._id,
+            label: `${teacher.userId?.first_name} ${teacher.userId?.last_name}`,
+          }))
+          .find((option) => option.value === homeroomTeacherId)
+      : null;
+  };
 
   return (
     <div className={Style.container}>
@@ -132,14 +131,7 @@ export const ClassForm: React.FC = () => {
                   label: `${teacher.userId?.first_name} ${teacher.userId?.last_name}`,
                 }))}
                 placeholder="בחר מורה מחנך"
-                value={
-                  (teachers as Teacher[])
-                    ?.filter((t) => t.userId?._id === field.value)
-                    .map((t) => ({
-                      value: t.userId?._id,
-                      label: `${t.userId?.first_name} ${t.userId?.last_name}`,
-                    }))[0] || null
-                }
+                value={getSelectedHomeroomTeacher(field.value)}
                 onChange={(selected) => field.onChange(selected?.value)}
                 isClearable
                 classNamePrefix="react-select"

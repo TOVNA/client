@@ -15,6 +15,7 @@ export const useRefetchQueries = () => {
     refetchQuery([QUERY_KEYS.POSTS_BY_USER(userId)]);
   const refetchTeachers = () => refetchQuery([QUERY_KEYS.TEACHERS]);
   const refetchStudents = () => refetchQuery([QUERY_KEYS.STUDENTS]);
+  const refetchClasses = () => refetchQuery([QUERY_KEYS.CLASSES]);
 
   return {
     refetchUserById,
@@ -22,5 +23,6 @@ export const useRefetchQueries = () => {
     refetchPostsByUser,
     refetchTeachers,
     refetchStudents,
+    refetchClasses,
   };
 };

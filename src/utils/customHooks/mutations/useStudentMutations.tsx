@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRefetchQueries } from "../queries/useRefetchQueries";
-import { createStudent, updateStudent } from "../../api/student";
+import { createStudent, deleteStduent, updateStudent } from "../../api/student";
 
 export const useStudentMutations = () => {
   const { refetchStudents } = useRefetchQueries();
@@ -17,5 +17,15 @@ export const useStudentMutations = () => {
     },
   });
 
-  return { createStudentMutation, updateStudentMutation };
+  const deleteStudentMutation = useMutation(deleteStduent, {
+    onSuccess: () => {
+      refetchStudents();
+    },
+  });
+
+  return {
+    createStudentMutation,
+    updateStudentMutation,
+    deleteStudentMutation,
+  };
 };

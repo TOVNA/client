@@ -102,8 +102,8 @@ export const TeacherForm: React.FC = () => {
   useEffect(() => {
     if (id && teacherInfo) {
       reset({
-        firstName: teacherInfo.userId.first_name,
-        lastName: teacherInfo.userId.last_name,
+        firstName: teacherInfo?.userId?.first_name,
+        lastName: teacherInfo?.userId?.last_name,
         types: teacherInfo.types,
       });
     }

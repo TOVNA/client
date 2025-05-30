@@ -7,6 +7,16 @@
   color: #7d7d7d;
 }
 
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+  height: 1.5rem;
+}
+
 .contentTitle {
   font-size: 2rem;
   font-weight: 600;

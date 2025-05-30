@@ -1,3 +1,5 @@
+import { UserRole } from "../types/entities/user";
+
 export const QUERY_KEYS = {
   POSTS: "posts",
   COMMENTS: "comments",
@@ -11,4 +13,7 @@ export const QUERY_KEYS = {
   STUDENT_BY_ID: (id: string) => `student-${id}`,
   TEACHERS: "teachers",
   TEACHER_BY_ID: (id: string) => `teacher-${id}`,
+  QUESTIONNAIRE_BY_TEACHER_TYPE: (
+    teacherType: UserRole.HOMEROOM | UserRole.TEACHER
+  ) => `questionnaire-${teacherType}`,
 } as const;

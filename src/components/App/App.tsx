@@ -13,6 +13,7 @@ import { SelectedStudentContextProvider } from "../SelectedStudentContext/Select
 import { AdminPage } from "../../pages/AdminPage/AdminPage";
 import { TeacherForm } from "../Forms/TeacherForm/TeacherForm";
 import { TeachersTable } from "../TeachersTable";
+import QuestionnairePage from "../../pages/Feedback";
 import { ClassesTable } from "../ClassesTable";
 import { StudentsTable } from "../StudentsTable";
 import { StudentForm } from "../Forms/StudentForm/StudentForm";
@@ -63,11 +64,12 @@ export const App: React.FC = ({}) => {
                   <Route path="*" element={<AdminPage />} />
                 </Route>
                 <Route path="/" element={<MainPage />}>
-                  <Route path="/student/:id" element={<StudentPage />} />
                   <Route path="/" element={<Content />} />
-                  <Route path="*" element={<Content />} />
+                  <Route path="/feedback" element={<QuestionnairePage />} />
+                  <Route path="/student/:id" element={<StudentPage />} />
                   <Route path="/not-found" element={<NotFound />} />
                 </Route>
+                <Route path="*" element={<MainPage />} />
               </Route>
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />

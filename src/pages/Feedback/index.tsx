@@ -93,7 +93,7 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
   return (
     <div>
       <div className={styles.titleContainer}>
-        <h1 className={styles.title}>{`שאלון עבור סטודנט ${studentName}`}</h1>
+        <h1 className={styles.title}>{`שאלון עבור תלמיד ${studentName}`}</h1>
         {
           <img
             src={closeIcon}

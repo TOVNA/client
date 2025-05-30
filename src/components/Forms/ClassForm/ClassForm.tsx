@@ -85,6 +85,19 @@ export const ClassForm: React.FC = () => {
     return <LoadingSpinner />;
   }
 
+  const getSelectedHomeroomTeacher = (
+    homeroomTeacherId: Class["homeroomTeacherId"]["_id"]
+  ) => {
+    return homeroomTeacherId
+      ? (teachers as Teacher[])
+          ?.map((teacher) => ({
+            value: teacher.userId?._id,
+            label: `${teacher.userId?.first_name} ${teacher.userId?.last_name}`,
+          }))
+          .find((option) => option.value === homeroomTeacherId)
+      : null;
+  };
+
   return (
     <div className={Style.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={Style.form}>
@@ -100,10 +113,7 @@ export const ClassForm: React.FC = () => {
         </div>
         <div className={Style.inputGroup}>
           <label htmlFor="classNumber">מספר כיתה</label>
-          <input
-            id="classNumber"
-           {...register("classNumber")} type="number"
-          />
+          <input id="classNumber" {...register("classNumber")} type="number" />
           {errors.classNumber && (
             <p className={Style.error}>{errors.classNumber.message}</p>
           )}
@@ -121,16 +131,7 @@ export const ClassForm: React.FC = () => {
                   label: `${teacher.userId?.first_name} ${teacher.userId?.last_name}`,
                 }))}
                 placeholder="בחר מורה מחנך"
-                value={
-                  field.value
-                    ? (teachers as Teacher[])
-                        ?.map((teacher) => ({
-                          value: teacher.userId?._id,
-                          label: `${teacher.userId?.first_name} ${teacher.userId?.last_name}`,
-                        }))
-                        .find((option) => option.value === field.value)
-                    : null
-                }
+                value={getSelectedHomeroomTeacher(field.value)}
                 onChange={(selected) => field.onChange(selected?.value)}
                 isClearable
                 classNamePrefix="react-select"

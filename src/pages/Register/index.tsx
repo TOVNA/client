@@ -22,11 +22,14 @@ const Register = () => {
     resolver: zodResolver(schema),
   });
 
-  const { register: registerUser } =
-    useAuth();
+  const { register: registerUser } = useAuth();
 
   const onSubmit = async (data) => {
-    await registerUser({ ...data });
+    await registerUser({
+      ...data,
+      first_name: data.firstName,
+      last_name: data.lastName,
+    });
   };
 
   return (
@@ -43,39 +46,23 @@ const Register = () => {
         <>
           <div className={styles.inputGroup}>
             <label htmlFor="email">אימייל</label>
-            <input
-              type="email"
-              id="email"
-              {...register("email")}
-            />
+            <input type="email" id="email" {...register("email")} />
             {errors.email && <p>{errors.email.message as string}</p>}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="password">סיסמה</label>
-            <input
-              type="password"
-              id="password"
-              {...register("password")}
-            />
+            <input type="password" id="password" {...register("password")} />
             {errors.password && <p>{errors.password.message as string}</p>}
           </div>
           <div className={styles.formRow}>
             <div className={styles.inputGroup}>
               <label htmlFor="firstName">שם פרטי</label>
-              <input
-                type="text"
-                id="firstName"
-                {...register("firstName")}
-              />
+              <input type="text" id="firstName" {...register("firstName")} />
               {errors.firstName && <p>{errors.firstName.message as string}</p>}
             </div>
             <div className={styles.inputGroup}>
               <label htmlFor="lastName">שם משפחה</label>
-              <input
-                type="text"
-                id="lastName"
-                {...register("lastName")}
-              />
+              <input type="text" id="lastName" {...register("lastName")} />
               {errors.lastName && <p>{errors.lastName.message as string}</p>}
             </div>
           </div>

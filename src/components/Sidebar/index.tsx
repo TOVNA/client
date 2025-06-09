@@ -5,12 +5,14 @@ import { useSelectedClassId } from "../SelectedClassContext/SelectedClassContext
 import { useClasses } from "../../utils/customHooks/queries/useClasses";
 import { Class } from "../../types/entities/class";
 import { useSelectedStudentId } from "../SelectedStudentContext/SelectedStudentContext";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { selectedClassId, setSelectedClassId } = useSelectedClassId();
   const { setSelectedStudentId } = useSelectedStudentId();
   const { data: classes = [] } = useClasses();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.sidebar}>
@@ -36,6 +38,7 @@ const Sidebar = () => {
               onClick={() => {
                 setSelectedClassId(_id);
                 setSelectedStudentId(undefined);
+                navigate("/");
               }}
             >
               {grade}

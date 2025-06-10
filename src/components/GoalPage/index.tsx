@@ -36,7 +36,6 @@ const GoalPage = () => {
   const { refetchGoalsByStudent, refetchStrategiesByGoal } =
     useRefetchQueries();
 
-  console.log(id, studentId);
   const { data: goal } = useGoalById(id || "");
   const navigate = useNavigate();
 
@@ -216,7 +215,6 @@ const GoalPage = () => {
                     await deleteGoalMutation.mutateAsync(id);
 
                     if (studentId) {
-                      console.log(" deleted student id");
                       await refetchGoalsByStudent(studentId);
                     }
                     navigate(`/student/${studentId}`);

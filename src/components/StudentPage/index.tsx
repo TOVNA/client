@@ -112,7 +112,7 @@ const StudentPage = () => {
         <button
           className={Style.processQuestionnairesButton}
           disabled={isProcessQuestionnairesDisabled}
-          onClick={() => handleProcessQuestionnariesClick()}
+          onClick={handleProcessQuestionnariesClick}
         >
           הרץ עיבוד שאלונים
         </button>

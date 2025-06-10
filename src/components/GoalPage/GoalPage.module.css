@@ -1,0 +1,145 @@
+.closeIcon {
+  @apply transition-all;
+  margin-right: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.closeIcon:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+
+.contentTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 900px;
+}
+
+.title {
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+  margin-bottom: 1rem;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.875rem;
+  color: #a0a0a0;
+}
+
+.inputGroup input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.3rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0rem 0.5rem;
+}
+
+.saveButton {
+  background-color: #007bff;
+}
+.saveButton:hover {
+  background-color: #0056b3;
+}
+
+.deleteButton {
+  background-color: #ff0000;
+}
+
+.deleteButton:hover {
+  background-color: #b30000;
+}
+
+.newStrategy {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  align-items: center;
+}
+
+.strategyInput {
+  width: 88%;
+}
+.exisitngStrategyInput {
+  width: 95%;
+}
+
+.newStrategyButton {
+  width: 10%;
+  padding: 0.5rem;
+  margin-left: 0;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.strategiesContainer {
+  max-height: 19rem;
+  overflow: auto;
+  padding: 0.3rem;
+}
+
+.deleteStrategyButton {
+  @apply transition-all;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+}
+
+.deleteStrategyButton:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}

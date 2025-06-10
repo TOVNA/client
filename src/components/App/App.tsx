@@ -21,6 +21,7 @@ import { ClassForm } from "../Forms/ClassForm/ClassForm";
 import StudentPage from "../StudentPage";
 import Content from "../Content/Content";
 import NotFound from "../NotFound";
+import GoalPage from "../GoalPage";
 
 export const App: React.FC = ({}) => {
   // const { isAdmin, user } = useAuth();
@@ -67,6 +68,14 @@ export const App: React.FC = ({}) => {
                   <Route path="/" element={<Content />} />
                   <Route path="/feedback" element={<QuestionnairePage />} />
                   <Route path="/student/:id" element={<StudentPage />} />
+                  <Route
+                    path="/student/:studentId/goal"
+                    element={<GoalPage />}
+                  />
+                  <Route
+                    path="/student/:studentId/goal/:id"
+                    element={<GoalPage />}
+                  />
                   <Route path="/not-found" element={<NotFound />} />
                 </Route>
                 <Route path="*" element={<MainPage />} />

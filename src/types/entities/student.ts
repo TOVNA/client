@@ -11,3 +11,7 @@ export interface Student extends StudentInfo {
   class?: Class;
   created_at: Date;
 }
+
+export interface StudentSnapshot {
+  summary: string;
+}

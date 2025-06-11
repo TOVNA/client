@@ -1,14 +1,13 @@
 import React from "react";
 import styles from "./Card.module.css";
 
-interface CardProps {
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  onClick?: () => void;
 }
 
-export const Card: React.FC<CardProps> = ({ children, onClick }) => {
+export const Card: React.FC<CardProps> = ({ children, ...rest }) => {
   return (
-    <div className={styles.card} onClick={onClick}>
+    <div className={styles.card} {...rest}>
       {children}
     </div>
   );

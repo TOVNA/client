@@ -14,6 +14,10 @@ import { useStudentSnapshot } from "../../utils/customHooks/queries/useStudentSn
 import { useGoalsMutations } from "../../utils/customHooks/mutations/useGoalsMutations";
 import { useRefetchQueries } from "../../utils/customHooks/queries/useRefetchQueries";
 import { useStudentMutations } from "../../utils/customHooks/mutations/useStudentMutations";
+import { useAuth } from "../AuthContext";
+import { UserRole } from "../../types/entities/user";
+import Dashboard from "../../pages/Dashboard/Dashboard";
+import { useStudentGradesByStudentId } from "../../utils/customHooks/queries/useStudentGrades";
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -22,6 +26,7 @@ const StudentPage = () => {
   const { data: student, isLoading, error } = useSelectedStudent(id);
   const { data: snapshot } = useStudentSnapshot(id);
   const { data: goals } = useGoalsByStudent(id);
+  const { data: grades } = useStudentGradesByStudentId(id);
   const navigate = useNavigate();
   const studentBirthDate = new Date(student?.birth_date || "");
   const [isProcessQuestionnairesDisabled, setIsProcessQuestionnairesDisabled] =
@@ -32,6 +37,7 @@ const StudentPage = () => {
   const { generateStudentSnapshotMutation } = useStudentMutations();
   const currentStudentProcessQuestionnariesKey =
     LOCAL_STORAGE_KEYS.PROCESS_QUESTIONNAIRES_TIME_BY_STUDENT(id || "");
+  const { user } = useAuth();
 
   const handleFillNewStudentFeedback = useCallback(() => {
     navigate("/feedback", {
@@ -155,6 +161,9 @@ const StudentPage = () => {
       <div className={Style.goalsContainer}>
         {goals ? goals.map((goal) => <GoalCard goal={goal} />) : "ללא מטרות"}
       </div>
+      {user?.role === UserRole.HOMEROOM && (
+        <Dashboard studentStatus={snapshot} studentGrades={grades} />
+      )}
     </>
   );
 };

@@ -20,32 +20,28 @@ import { Grade } from "../../types/entities/grade";
 interface DashboardData {
   studentStatus?: StudentSnapshot[];
   studentGrades?: Grade[];
+  isLoading?: boolean;
 }
 
 const Dashboard = ({
   studentStatus = [],
   studentGrades = [],
+  isLoading,
 }: DashboardData) => {
-  // Get the most updated object in the array using updatedAt
-  const mostUpdatedStudent = studentStatus?.reduce(
-    (latest, current) =>
-      new Date(latest.updatedAt) > new Date(current.updatedAt)
-        ? latest
-        : current,
-    {}
-  );
-  const barData = mostUpdatedStudent?.grades;
+  if (isLoading || studentStatus.length === 0 || studentGrades.length === 0) {
+    return null;
+  }
 
-  const mostUpdatedStudentGrade = studentGrades?.reduce(
-    (latest, current) =>
-      new Date(latest.date) > new Date(current.date) ? latest : current,
-    {}
-  );
+  // Get the most updated object in the array using updatedAt
+  const mostUpdatedStudent = studentStatus[studentStatus.length - 1];
+  const barData = mostUpdatedStudent.grades;
+
+  const mostUpdatedStudentGrade = studentGrades[studentGrades.length - 1];
 
   // Prepare data for the pie chart
   const pieData = [
-    { name: "Completed", value: mostUpdatedStudentGrade?.score },
-    { name: "Remaining", value: 100 - mostUpdatedStudentGrade?.score },
+    { name: "Completed", value: mostUpdatedStudentGrade.score },
+    { name: "Remaining", value: 100 - mostUpdatedStudentGrade.score },
   ];
   const COLORS = ["#0088FE", "#e4e4e4"];
 
@@ -54,14 +50,6 @@ const Dashboard = ({
     time: new Date(grade.date).toLocaleDateString("he-IL"),
     ציון: grade.score,
   }));
-  // Sample data for line chart
-  // const lineData = [
-  //   { time: "Jan", grade: 80 },
-  //   { time: "Feb", grade: 85 },
-  //   { time: "Mar", grade: 90 },
-  //   { time: "Apr", grade: 88 },
-  //   { time: "May", grade: 92 },
-  // ];
 
   return (
     <>
@@ -80,7 +68,7 @@ const Dashboard = ({
                 fill="#8884d8"
                 dataKey="value"
               >
-                {pieData.map((entry, index) => (
+                {pieData.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
@@ -110,7 +98,6 @@ const Dashboard = ({
                 data={[data]}
                 margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
               >
-                {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis dataKey="category" fontSize={0} tickSize={0} />
                 <YAxis ticks={[0, 2, 4, 6, 8, 10]} tickMargin={40} />
                 <Tooltip />

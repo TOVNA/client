@@ -24,9 +24,11 @@ const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const StudentPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: student, isLoading, error } = useSelectedStudent(id);
-  const { data: snapshot } = useStudentSnapshot(id);
+  const { data: snapshot, isLoading: isSnapshotLoading } =
+    useStudentSnapshot(id);
   const { data: goals } = useGoalsByStudent(id);
-  const { data: grades } = useStudentGradesByStudentId(id);
+  const { data: grades, isLoading: isGradesLoading } =
+    useStudentGradesByStudentId(id);
   const navigate = useNavigate();
   const studentBirthDate = new Date(student?.birth_date || "");
   const [isProcessQuestionnairesDisabled, setIsProcessQuestionnairesDisabled] =
@@ -162,7 +164,11 @@ const StudentPage = () => {
         {goals ? goals.map((goal) => <GoalCard goal={goal} />) : "ללא מטרות"}
       </div>
       {user?.role === UserRole.HOMEROOM && (
-        <Dashboard studentStatus={snapshot} studentGrades={grades} />
+        <Dashboard
+          studentStatus={snapshot}
+          studentGrades={grades}
+          isLoading={isSnapshotLoading || isGradesLoading}
+        />
       )}
     </>
   );

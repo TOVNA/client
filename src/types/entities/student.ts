@@ -12,6 +12,14 @@ export interface Student extends StudentInfo {
   created_at: Date;
 }
 
+export interface StudentGrade {
+  _id: string;
+  category: string;
+  value: number;
+}
 export interface StudentSnapshot {
   summary: string;
+  grades: StudentGrade[];
+  createdAt: Date;
+  updatedAt: Date;
 }

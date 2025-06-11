@@ -107,8 +107,6 @@ const QuestionnaireAnswerDisplay = () => {
               <div key={answer._id} className={Style.answer}>
                 <p><strong>שאלה:</strong> {question?.text || "Unknown Question"}</p>
                 <p><strong>תיאור שאלה:</strong> {question?.description || "Unknown Question"}</p>
-                <p><strong>סוג שאלה:</strong> {question?.type || "N/A"}</p>
-
                 {question?.type === "scale" && question.scale ? (
                   <p>
                     <strong>שאלה (בטווח {question.scale.min}–{question.scale.max}):</strong> {answer.answerText}

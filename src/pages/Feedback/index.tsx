@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useInsertQuestionnaire } from "../../utils/customHooks/mutations/useInsertQuestionnaire";
 import styles from "./Feedback.module.css";
 import closeIcon from "../../assets/close.svg";
+import FullScreenMessage from "../../components/FullScreenMessage/FullScreenMessage";
 
 // Props for the QuestionnairePage component
 interface QuestionnairePageProps {
@@ -46,7 +47,8 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
     return UserRole.TEACHER;
   }, [user?.role]);
 
-  const { data, isLoading } = useQuestionnaireByTeacherType(teacherType);
+  const { data, isLoading, isError } =
+    useQuestionnaireByTeacherType(teacherType);
 
   // Dynamically create a Zod schema based on the questionnaire
   const schema = useMemo(() => {
@@ -88,6 +90,15 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
 
   if (isLoading) {
     return <LoadingSpinner />;
+  }
+
+  if (isError) {
+    return (
+      <FullScreenMessage
+        title="שגיאה בטעינת שאלון"
+        message="אנא נסה שנית מאוחר יותר"
+      />
+    );
   }
 
   return (

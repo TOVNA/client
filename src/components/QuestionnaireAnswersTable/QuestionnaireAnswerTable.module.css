@@ -1,0 +1,25 @@
+.tableContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 1rem auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ag-theme-alpine {
+  --ag-foreground-color: #333;
+  --ag-header-background-color: #f5f5f5;
+  --ag-header-foreground-color: #222;
+  --ag-row-hover-color: #e6f7ff;
+  --ag-row-selected-color: #bae7ff;
+  --ag-border-color: #ddd;
+}
+
+@media (max-width: 600px) {
+  .tableContainer {
+    max-width: 100%;
+    margin: 0.5rem;
+  }
+}

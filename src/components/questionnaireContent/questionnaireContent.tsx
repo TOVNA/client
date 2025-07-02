@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Style from "./questionnaireContent.module.css";
+import { useParams } from "react-router-dom";
 import { getQuestionnaireAnwerById, getQuestionById } from "../../utils/api/questionnaireAnwer";
 
 interface QuestionnaireAnswer {
@@ -33,11 +34,11 @@ interface Question {
 }
 
 const QuestionnaireAnswerDisplay = () => {
+  const { id } = useParams<{ id: string }>();
   const [answerData, setAnswerData] = useState<QuestionnaireAnswer | null>(null);
   const [questionsMap, setQuestionsMap] = useState<Record<string, Question>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const id = "6829c4e3665390cfb71535da"; // TODO: make this dynamic if needed
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

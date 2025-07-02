@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Style from "./StudentPage.module.css";
 import { calculateAgeDecimal } from "../../utils/date";
 import { useSelectedStudent } from "../../utils/customHooks/queries/useSelectedStudent";
+import QuestionnaireAnswersTable from "../QuestionnaireAnswersTable/QuestionnaireAnswerTable";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import closeIcon from "../../assets/close.svg";
@@ -49,6 +50,7 @@ const StudentPage = () => {
           </>
         )}
       </div>
+      {student && <QuestionnaireAnswersTable studentId={student._id} />}
     </>
   );
 };

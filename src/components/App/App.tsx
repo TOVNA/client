@@ -13,11 +13,17 @@ import { SelectedStudentContextProvider } from "../SelectedStudentContext/Select
 import { AdminPage } from "../../pages/AdminPage/AdminPage";
 import { TeacherForm } from "../Forms/TeacherForm/TeacherForm";
 import { TeachersTable } from "../TeachersTable";
+import QuestionnairePage from "../../pages/Feedback";
+import { ClassesTable } from "../ClassesTable";
+import { StudentsTable } from "../StudentsTable";
+import { StudentForm } from "../Forms/StudentForm/StudentForm";
+import { ClassForm } from "../Forms/ClassForm/ClassForm";
 import StudentPage from "../StudentPage";
 import Content from "../Content/Content";
 import NotFound from "../NotFound";
 import QuestionnaireAnswerPage from "../../pages/QuestionnaireAnswerPage/QuestionnaireAnswerPage";
 import QuestionnaireAnswerDisplay from "../questionnaireContent/questionnaireContent";
+import GoalPage from "../GoalPage";
 
 export const App: React.FC = ({}) => {
   // const { isAdmin, user } = useAuth();
@@ -48,23 +54,41 @@ export const App: React.FC = ({}) => {
               <Route element={<ProtectedRoute />}>
                 <Route path="/admin" element={<AdminPage />}>
                   <Route path="teachers" element={<TeachersTable />} />
+                  <Route path="students" element={<StudentsTable />} />
+                  <Route path="classes" element={<ClassesTable />} />
                   {/* <Route path="students" element={<AdminTable />} /> */}
                   {/* <Route path="classes" element={<AdminTable />} /> */}
                   <Route path="teacher" element={<TeacherForm />} />
                   <Route path="teacher/:id" element={<TeacherForm />} />
+                  <Route path="student/:id" element={<StudentForm />} />
+                  <Route path="student" element={<StudentForm />} />
+                  <Route path="class/:id" element={<ClassForm />} />
+                  <Route path="class" element={<ClassForm />} />
                   <Route path="*" element={<AdminPage />} />
                 </Route>
                 <Route path="/" element={<MainPage />}>
-                  <Route path="/student/:id" element={<StudentPage />} />
                   <Route path="/" element={<Content />} />
-                  <Route path="*" element={<Content />} />
+                  <Route path="/feedback" element={<QuestionnairePage />} />
+                  <Route path="/student/:id" element={<StudentPage />} />
+                  <Route
+                    path="/student/:studentId/goal"
+                    element={<GoalPage />}
+                  />
+                  <Route
+                    path="/student/:studentId/goal/:id"
+                    element={<GoalPage />}
+                  />
                   <Route path="/not-found" element={<NotFound />} />
                 </Route>
+                <Route path="*" element={<MainPage />} />
               </Route>
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<Login />} />
-              <Route path='/questionnaire-answers' element={<QuestionnaireAnswerPage />} >
+              <Route
+                path="/questionnaire-answers"
+                element={<QuestionnaireAnswerPage />}
+              >
                 <Route index element={<QuestionnaireAnswerDisplay />} />
               </Route>
             </Routes>

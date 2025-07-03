@@ -1,7 +1,7 @@
 export enum UserRole {
   ADMIN = "admin",
   HOMEROOM = "homeroom",
-  teacher = "teacher",
+  TEACHER = "teacher",
 }
 
 export interface UserEntity {

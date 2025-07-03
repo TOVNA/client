@@ -1,0 +1,35 @@
+.card {
+  @apply transition-all;
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  margin: 10px 0px;
+  width: 37rem;
+  max-height: 14rem;
+  position: relative;
+}
+
+ol {
+  list-style-type: circle;
+  max-height: 6rem;
+  overflow: auto;
+  padding-right: 1rem;
+  font-size: 0.8rem;
+}
+
+.editButton {
+  @apply transition-all;
+  width: 1.5rem;
+  position: absolute;
+  top: -0.5rem;
+  background-color: white;
+  border-radius: 50%;
+  right: -0.1rem;
+}
+
+.editButton:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}

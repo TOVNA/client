@@ -20,5 +20,10 @@ export const QUERY_KEYS = {
   QUESTIONNAIRE_BY_TEACHER_TYPE: (
     teacherType: UserRole.HOMEROOM | UserRole.TEACHER
   ) => `questionnaire-${teacherType}`,
+  QUESTIONNAIRE_BY_ID: (id: string) => `questionnaire-${id}`,
   GRADES_BY_STUDENT_ID: (id: string) => `grades-student-${id}`,
+  QUESTIONNAIRE_ANSWERS_BY_QUESTIONNAIRE_ID: (id: string) =>
+    `questionnaire-answers-${id}`,
+  QUESTIONNAIRE_ANSWERS_BY_STUDENT_ID: (id: string) =>
+    `questionnaire-answers-student-${id}`,
 } as const;

@@ -22,7 +22,6 @@ import StudentPage from "../StudentPage";
 import Content from "../Content/Content";
 import NotFound from "../NotFound";
 import QuestionnaireAnswerPage from "../../pages/QuestionnaireAnswerPage/QuestionnaireAnswerPage";
-import QuestionnaireAnswerDisplay from "../questionnaireContent/questionnaireContent";
 import GoalPage from "../GoalPage";
 
 export const App: React.FC = ({}) => {
@@ -56,8 +55,6 @@ export const App: React.FC = ({}) => {
                   <Route path="teachers" element={<TeachersTable />} />
                   <Route path="students" element={<StudentsTable />} />
                   <Route path="classes" element={<ClassesTable />} />
-                  {/* <Route path="students" element={<AdminTable />} /> */}
-                  {/* <Route path="classes" element={<AdminTable />} /> */}
                   <Route path="teacher" element={<TeacherForm />} />
                   <Route path="teacher/:id" element={<TeacherForm />} />
                   <Route path="student/:id" element={<StudentForm />} />
@@ -69,6 +66,10 @@ export const App: React.FC = ({}) => {
                 <Route path="/" element={<MainPage />}>
                   <Route path="/" element={<Content />} />
                   <Route path="/feedback" element={<QuestionnairePage />} />
+                  <Route
+                    path="/feedback/:id"
+                    element={<QuestionnaireAnswerPage />}
+                  />
                   <Route path="/student/:id" element={<StudentPage />} />
                   <Route
                     path="/student/:studentId/goal"
@@ -85,12 +86,6 @@ export const App: React.FC = ({}) => {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<Login />} />
-              <Route
-                path="/questionnaire-answers"
-                element={<QuestionnaireAnswerPage />}
-              >
-                <Route index element={<QuestionnaireAnswerDisplay />} />
-              </Route>
             </Routes>
             {/* </RedirectAdmin> */}
           </div>

@@ -1,39 +1,60 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+import { RowClickedEvent } from "ag-grid-community";
 import styles from "./QuestionnaireAnswerTable.module.css";
 import { questionnaireAnswersColumns } from "./columns";
-import { useQuestionnaireAnswers } from "../../utils/customHooks/queries/useQuestionnaireAnswersByStudent";
+import { useQuestionnaireAnswersByStudent } from "../../utils/customHooks/queries/useQuestionnaireAnswersByStudent";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { tableTheme } from "../../setupTable";
+import { Card } from "../Card/Card";
 
 interface Props {
   studentId: string;
 }
 
 const QuestionnaireAnswersTable: React.FC<Props> = ({ studentId }) => {
-  const { answers, loading, error } = useQuestionnaireAnswers(studentId);
+  const {
+    data: answers = [],
+    isLoading,
+    error,
+  } = useQuestionnaireAnswersByStudent(studentId);
   const navigate = useNavigate();
 
-  if (loading) return <p>Loading questionnaire answers...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const data = useMemo(
+    () =>
+      answers.map((answer) => ({
+        _id: answer._id,
+        createdAt: answer.createdAt,
+        questionnaireType: answer.questionnaireId?.title ?? "-",
+      })),
+    [answers]
+  );
 
-  const onRowClicked = (event: any) => {
-    const questionnaireAnswerId = event.data._id;  // adjust if your ID field has different name
+  // if (isLoading) return <LoadingSpinner />;
+  if (error) return null;
+
+  const onRowClicked = (event: RowClickedEvent) => {
+    const questionnaireAnswerId = event.data._id;
     if (questionnaireAnswerId) {
-      navigate(`/questionnaire-answer/${questionnaireAnswerId}`);
+      navigate(`/feedback/${questionnaireAnswerId}`);
     }
   };
 
   return (
-    <div className={`ag-theme-alpine ${styles.tableContainer}`}>
-      <AgGridReact
-        rowData={answers}
-        columnDefs={questionnaireAnswersColumns}
-        domLayout="autoHeight"
-        onRowClicked={onRowClicked}
-      />
-    </div>
+    <Card>
+      <div className={styles.tableContainer}>
+        <AgGridReact
+          rowData={data}
+          loading={isLoading}
+          loadingOverlayComponent={LoadingSpinner}
+          theme={tableTheme}
+          columnDefs={questionnaireAnswersColumns}
+          domLayout="autoHeight"
+          onRowClicked={onRowClicked}
+        />
+      </div>
+    </Card>
   );
 };
 

@@ -53,7 +53,7 @@ const Dashboard = ({
 
   return (
     <>
-      <Card style={{ display: "flex" }}>
+      <Card style={{ display: "flex", cursor: "default" }}>
         {/* Pie Chart */}
         <div style={{ width: "300px" }}>
           <h3>ציון אחרון</h3>
@@ -109,7 +109,7 @@ const Dashboard = ({
       </Card>
 
       {/* Line Chart */}
-      <Card>
+      <Card style={{ cursor: "default" }}>
         <h3>ציונים לאורך זמן</h3>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart

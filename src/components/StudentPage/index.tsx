@@ -102,6 +102,8 @@ const StudentPage = () => {
   }
 
   const studentSummary = snapshot?.[0]?.summary;
+  const studentClass =
+    student?.class?.grade?.split(" ")[1] || student?.class?.grade;
 
   return (
     <>
@@ -127,20 +129,26 @@ const StudentPage = () => {
       </div>
       <div className={Style.details}>
         {student?.birth_date && (
-          <>
-            <h6>תאריך לידה:</h6>
-            <div className={Style.date}>
-              {studentBirthDate.toLocaleDateString("he-IL")}
+          <div className={Style.studentInfo}>
+            <div className={Style.info}>
+              <div className={Style.infoItem}>
+                <h6>תאריך לידה:</h6>
+                <span>{studentBirthDate.toLocaleDateString("he-IL")}</span>
+              </div>
+              <div className={Style.infoItem}>
+                <h6>גיל:</h6>
+                <span>{calculateAgeDecimal(studentBirthDate)}</span>
+              </div>
+              <div className={Style.infoItem}>
+                <h6>כיתה:</h6>
+                <span>{studentClass}</span>
+              </div>
             </div>
-            <h6> ,גיל: </h6>
-            <div className={Style.date}>
-              {calculateAgeDecimal(studentBirthDate)}
-            </div>
-          </>
+          </div>
         )}
       </div>
       {studentSummary && (
-        <Card>
+        <Card className={Style.cardPointerDefault}>
           <div className={Style.summary}>{studentSummary}</div>
         </Card>
       )}

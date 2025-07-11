@@ -31,7 +31,6 @@ const QuestionnaireAnswersTable: React.FC<Props> = ({ studentId }) => {
     [answers]
   );
 
-  // if (isLoading) return <LoadingSpinner />;
   if (error) return null;
 
   const onRowClicked = (event: RowClickedEvent) => {

@@ -54,7 +54,6 @@ const QuestionnaireAnswerPage: React.FC<
       key={question._id}
     />
   ));
-  // <></>
 };
 
 export default QuestionnaireAnswerPage;

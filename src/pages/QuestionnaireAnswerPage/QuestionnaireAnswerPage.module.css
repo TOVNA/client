@@ -1,0 +1,15 @@
+.questionnaireAnswersPage {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+.questionnaireContent{
+    overflow-y: auto;
+    position: fixed;
+    top: 64px;
+    right: 300px;
+    left: 16px;
+    bottom: 16px;
+  }
+  

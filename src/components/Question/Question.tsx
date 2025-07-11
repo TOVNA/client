@@ -5,7 +5,7 @@ interface QuestionProps {
   question: IQuestion;
   isEditable: boolean;
   answer: string;
-  onAnswerChange: (newAnswer: string) => void;
+  onAnswerChange?: (newAnswer: string) => void;
   error?: string;
 }
 
@@ -17,7 +17,7 @@ export const Question: React.FC<QuestionProps> = ({
   error,
 }) => {
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onAnswerChange(e.target.value);
+    onAnswerChange?.(e.target.value);
   };
 
   return (
@@ -26,18 +26,17 @@ export const Question: React.FC<QuestionProps> = ({
       <p>{question.description}</p>
       <div>
         <label>תשובה:</label>
-        {isEditable ? (
+        {
           <textarea
             value={answer}
+            disabled={!isEditable}
             onChange={handleAnswerChange}
             className={`${styles.textarea} ${
               error ? styles.textareaError : ""
             }`}
             rows={4}
           />
-        ) : (
-          <p>{answer}</p>
-        )}
+        }
         {error && <p className={styles.errorMessage}>{error}</p>}
       </div>
     </div>

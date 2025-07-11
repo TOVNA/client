@@ -18,6 +18,7 @@ import { useAuth } from "../AuthContext";
 import { UserRole } from "../../types/entities/user";
 import Dashboard from "../../pages/Dashboard/Dashboard";
 import { useStudentGradesByStudentId } from "../../utils/customHooks/queries/useStudentGrades";
+import QuestionnaireAnswersTable from "../QuestionnaireAnswersTable/QuestionnaireAnswerTable";
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -171,6 +172,7 @@ const StudentPage = () => {
       <div className={Style.goalsContainer}>
         {goals ? goals.map((goal) => <GoalCard goal={goal} />) : "ללא מטרות"}
       </div>
+      {student && <QuestionnaireAnswersTable studentId={student._id} />}
       {user?.role === UserRole.HOMEROOM && (
         <Dashboard
           studentStatus={snapshot}

@@ -36,3 +36,11 @@ export const submitQuestionnaireAnswers = async (
 
   return response;
 };
+
+export const getQuestionnaireById = async (id?: string) => {
+  const response = await fetchRequest(`/questionnaire/${id}`, {
+    method: "GET",
+  });
+
+  return response;
+};

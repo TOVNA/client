@@ -1,7 +1,36 @@
 .details {
   display: flex;
+  margin-top: 1rem;
 }
 
+.studentInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.infoItem h6 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.infoItem span {
+  font-size: 1rem;
+  color: #7d7d7d;
+}
 .date {
   margin-right: 0.25rem;
   color: #7d7d7d;
@@ -66,7 +95,13 @@
 }
 
 .goalsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  justify-content: center;
+  margin: 10px 0px 10px 10px;
+}
+
+.cardPointerDefault {
+  cursor: default !important;
 }

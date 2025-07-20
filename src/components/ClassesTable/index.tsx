@@ -17,7 +17,7 @@ export const ClassesTable = () => {
   const classesData = useMemo(() => {
     return (classes as Class[])?.map((schoolClass) => ({
       grade: schoolClass.grade,
-      homeroomTeacherName: `${schoolClass.homeroomTeacherId.first_name} ${schoolClass.homeroomTeacherId.last_name}`,
+      homeroomTeacherName: `${schoolClass?.homeroomTeacherId?.first_name} ${schoolClass?.homeroomTeacherId?.last_name}`,
       id: schoolClass._id,
     }));
   }, [classes]);

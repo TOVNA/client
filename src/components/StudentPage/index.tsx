@@ -75,12 +75,12 @@ const StudentPage = () => {
     if (id) {
       await generateStudentGoalsMutation.mutateAsync({
         studentId: id,
-        days: 30,
+        days: 90,
       });
 
       await generateStudentSnapshotMutation.mutateAsync({
         studentId: id,
-        days: 30,
+        days: 90,
       });
 
       refetchGoalsByStudent(id);

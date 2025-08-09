@@ -7,6 +7,8 @@ export const QUERY_KEYS = {
   COMMENTS_BY_POST: (postId: string) => `comments-${postId}`,
   USER_BY_ID: (id: string) => `user-${id}`,
   CLASSES: "classes",
+  SUBJECT_CLASS: "subject-class",
+  SUBJECT_CLASS_BY_ID: (id: string) => `subject-class-${id}`,
   CLASS_BY_ID: (id: string) => `class-${id}`,
   STUDENTS: "students",
   STUDENTS_BY_CLASS_ID: (id: string) => `students-${id}`,
@@ -17,6 +19,8 @@ export const QUERY_KEYS = {
   STUDENT_BY_ID: (id: string) => `student-${id}`,
   TEACHERS: "teachers",
   TEACHER_BY_ID: (id: string) => `teacher-${id}`,
+  QUESTIONNAIRES_BY_TEACHER: (id: string) => `questionnaires-by-teacher-${id}`,
+  CLASS_SUBJECTS_BY_TEACHER: (id: string) => `class-subjects-by-teacher-${id}`,
   QUESTIONNAIRE_BY_TEACHER_TYPE: (
     teacherType: UserRole.HOMEROOM | UserRole.TEACHER
   ) => `questionnaire-${teacherType}`,

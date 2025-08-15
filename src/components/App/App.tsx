@@ -23,6 +23,8 @@ import Content from "../Content/Content";
 import NotFound from "../NotFound";
 import QuestionnaireAnswerPage from "../../pages/QuestionnaireAnswerPage/QuestionnaireAnswerPage";
 import GoalPage from "../GoalPage";
+import { ClassSubjectsTable } from "../ClassSubjectsTable";
+import { ClassSubjectForm } from "../Forms/ClassSubjectForm/ClassSubjectForm";
 
 export const App: React.FC = ({}) => {
   // const { isAdmin, user } = useAuth();
@@ -55,6 +57,9 @@ export const App: React.FC = ({}) => {
                   <Route path="teachers" element={<TeachersTable />} />
                   <Route path="students" element={<StudentsTable />} />
                   <Route path="classes" element={<ClassesTable />} />
+                  <Route path="class-subjects" element={<ClassSubjectsTable />} />
+                  <Route path="class-subject/:id" element={<ClassSubjectForm />} />
+                  <Route path="class-subject" element={<ClassSubjectForm />} />
                   <Route path="teacher" element={<TeacherForm />} />
                   <Route path="teacher/:id" element={<TeacherForm />} />
                   <Route path="student/:id" element={<StudentForm />} />

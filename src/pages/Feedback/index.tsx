@@ -13,6 +13,11 @@ import { useInsertQuestionnaire } from "../../utils/customHooks/mutations/useIns
 import styles from "./Feedback.module.css";
 import closeIcon from "../../assets/close.svg";
 import FullScreenMessage from "../../components/FullScreenMessage/FullScreenMessage";
+import { useStudentById } from "../../utils/customHooks/queries/useStudentById";
+import { useClasses } from "../../utils/customHooks/queries/useClasses";
+import { useClassSubjects } from "../../utils/customHooks/queries/useClassSubjects";
+import { Class } from "../../types/entities/class";
+import { ClassSubject } from "../../types/entities/classSubject";
 
 // Props for the QuestionnairePage component
 interface QuestionnairePageProps {
@@ -34,22 +39,40 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
   const studentName = state?.studentName;
   const navigate = useNavigate();
 
-  if (!studentId || !studentName) {
+  const { data: studentData } = useStudentById(studentId);
+  const { data: studentClass } = useClasses(studentData?.class?._id);
+  const { data: classSubjects } = useClassSubjects();
+
+  if (!studentId || !studentName || !user) {
     navigate("/"); // Redirect if studentId or studentName is not provided
   }
 
   const { mutate: insertQuestionnaireMutation } = useInsertQuestionnaire();
 
   const teacherType = useMemo(() => {
-    if (user?.role === UserRole.HOMEROOM) {
+    if (
+      (studentClass as Class)?.homeroomTeacherId?._id === (user as any)?.userId
+    )
       return UserRole.HOMEROOM;
+
+    const subjectTeacher = (classSubjects as ClassSubject[])
+      ?.filter(
+        (classSubject) =>
+          classSubject?.classId?._id === (studentClass as Class)?._id
+      )
+      .find(
+        (classSubject) =>
+          classSubject?.teacherId?.userId?._id === (user as any)?.userId
+      );
+
+    if (subjectTeacher) {
+      return UserRole.TEACHER;
     }
-    return UserRole.TEACHER;
-  }, [user?.role]);
+  }, [user, studentData, classSubjects, studentClass]);
 
-  const { data, isLoading, isError } =
-    useQuestionnaireByTeacherType(teacherType);
-
+  const { data, isLoading, isError } = useQuestionnaireByTeacherType(
+    teacherType || UserRole.TEACHER
+  );
   // Dynamically create a Zod schema based on the questionnaire
   const schema = useMemo(() => {
     if (!data) return z.object({});
@@ -97,6 +120,15 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
       <FullScreenMessage
         title="שגיאה בטעינת שאלון"
         message="אנא נסה שנית מאוחר יותר"
+      />
+    );
+  }
+
+  if (!teacherType) {
+    return (
+      <FullScreenMessage
+        title="שגיאה בטעינת שאלון"
+        message="המשתמש לא מורה מחנך/מקצועי של התלמיד"
       />
     );
   }

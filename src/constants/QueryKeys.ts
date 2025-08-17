@@ -10,6 +10,8 @@ export const QUERY_KEYS = {
   SUBJECT_CLASS: "subject-class",
   SUBJECT_CLASS_BY_ID: (id: string) => `subject-class-${id}`,
   CLASS_BY_ID: (id: string) => `class-${id}`,
+  CLASS_SUBJECTS: "class-subjects",
+  CLASS_SUBJECT_BY_ID: (id: string) => `class-subjects-${id}`,
   STUDENTS: "students",
   STUDENTS_BY_CLASS_ID: (id: string) => `students-${id}`,
   GOALS_BY_STUDENT_ID: (id: string) => `goals-student-${id}`,

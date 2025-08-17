@@ -1,12 +1,15 @@
+import { Class } from "./class";
+import { Teacher } from "./teacher";
+
+export interface ClassSubjectPayload {
+  teacherId: string;
+  classId: string;
+  subject: string;
+}
+
 export interface ClassSubject {
   _id: string;
-  classId: {
-    _id: string;
-    grade: string;
-    classNumber: number;
-  };
+  teacherId: Teacher;
+  classId: Class;
   subject: string;
-  teacherId: {
-    _id: string;
-  };
 }

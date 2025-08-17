@@ -18,6 +18,7 @@ export const useRefetchQueries = () => {
   const refetchTeachers = () => refetchQuery([QUERY_KEYS.TEACHERS]);
   const refetchStudents = () => refetchQuery([QUERY_KEYS.STUDENTS]);
   const refetchClasses = () => refetchQuery([QUERY_KEYS.CLASSES]);
+  const refetchClassSubjects = () => refetchQuery([QUERY_KEYS.CLASS_SUBJECTS]);
   const refetchGoalsByStudent = (studentId: Student["_id"]) =>
     refetchQuery([QUERY_KEYS.GOALS_BY_STUDENT_ID(studentId)]);
   const refetchStrategiesByGoal = (goalId: Goal["_id"]) =>
@@ -35,5 +36,6 @@ export const useRefetchQueries = () => {
     refetchGoalsByStudent,
     refetchStrategiesByGoal,
     refetchStudentSnapshot,
+    refetchClassSubjects,
   };
 };

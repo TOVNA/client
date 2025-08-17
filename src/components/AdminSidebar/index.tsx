@@ -5,6 +5,7 @@ const options = [
   { label: "מורים", value: "teachers" },
   { label: "תלמידים", value: "students" },
   { label: "כיתות", value: "classes" },
+  { label: "מורים מקצועיים", value: "class-subjects" },
 ];
 
 const AdminSidebar = () => {

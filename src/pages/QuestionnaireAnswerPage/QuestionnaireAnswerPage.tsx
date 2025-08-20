@@ -5,6 +5,7 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import FullScreenMessage from "../../components/FullScreenMessage/FullScreenMessage";
 import { Question } from "../../components/Question/Question";
 import { useQuestionnaireById } from "../../utils/customHooks/queries/useQuestionnaireById";
+import Style from './QuestionnaireAnswerPage.module.css'
 
 interface QuestionnaireAnswerPageProps {}
 
@@ -12,6 +13,7 @@ const QuestionnaireAnswerPage: React.FC<
   QuestionnaireAnswerPageProps
 > = ({}) => {
   const { id } = useParams<{ id: string }>();
+  console.log("the id", id);
   const {
     data: answers,
     isLoading: isAnswersLoading,
@@ -25,6 +27,8 @@ const QuestionnaireAnswerPage: React.FC<
     isLoading: isQuestionsLoading,
     isError: isQuestionsError,
   } = useQuestionnaireById(answers?.questionnaireId?._id);
+
+  console.log(questions);
 
   if (isAnswersLoading || (questionnaireId && isQuestionsLoading)) {
     return <LoadingSpinner />;
@@ -46,14 +50,18 @@ const QuestionnaireAnswerPage: React.FC<
     );
   };
 
-  return questions?.questionIds?.map((question) => (
-    <Question
-      question={question}
-      isEditable={false}
-      answer={getAnswerByQuestionId(question._id)}
-      key={question._id}
-    />
-  ));
+  return (
+    <div className={Style.questionnaireContent}>
+      {questions?.questionIds?.map((question) => (
+        <Question
+          question={question}
+          isEditable={false}
+          answer={getAnswerByQuestionId(question._id)}
+          key={question._id}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default QuestionnaireAnswerPage;

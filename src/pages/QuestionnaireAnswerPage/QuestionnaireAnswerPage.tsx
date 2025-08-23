@@ -13,7 +13,6 @@ const QuestionnaireAnswerPage: React.FC<
   QuestionnaireAnswerPageProps
 > = ({}) => {
   const { id } = useParams<{ id: string }>();
-  console.log("the id", id);
   const {
     data: answers,
     isLoading: isAnswersLoading,
@@ -27,8 +26,6 @@ const QuestionnaireAnswerPage: React.FC<
     isLoading: isQuestionsLoading,
     isError: isQuestionsError,
   } = useQuestionnaireById(answers?.questionnaireId?._id);
-
-  console.log(questions);
 
   if (isAnswersLoading || (questionnaireId && isQuestionsLoading)) {
     return <LoadingSpinner />;

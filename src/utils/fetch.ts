@@ -4,7 +4,7 @@ const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 // TODO server url to env
 export const api = axios.create({
-  baseURL: backend_url,
+  baseURL: '/',
   headers: {
     "Content-Type": "application/json",
   },

@@ -34,3 +34,7 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.buttons {
+  display: flex;
+}

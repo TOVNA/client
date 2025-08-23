@@ -1,5 +1,7 @@
 .form {
   margin-left: 10px;
+  max-height: 82vh;
+  overflow-y: scroll;
 }
 
 .titleContainer {

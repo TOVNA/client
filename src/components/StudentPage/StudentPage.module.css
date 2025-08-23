@@ -105,3 +105,8 @@
 .cardPointerDefault {
   cursor: default !important;
 }
+
+.scrollWrapper {
+  max-height: 82vh;
+  overflow-y: scroll;
+}

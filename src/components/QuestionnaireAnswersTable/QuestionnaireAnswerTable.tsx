@@ -51,6 +51,11 @@ const QuestionnaireAnswersTable: React.FC<Props> = ({ studentId }) => {
           columnDefs={questionnaireAnswersColumns}
           domLayout="autoHeight"
           onRowClicked={onRowClicked}
+          noRowsOverlayComponent={() => (
+            <div style={{ textAlign: "center" }}>
+              אין שאלונים שמולאו על התלמיד
+            </div>
+          )}
         />
       </div>
     </Card>

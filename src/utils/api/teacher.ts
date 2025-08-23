@@ -59,3 +59,11 @@ export const deleteTeacher = async (id: string) => {
 
   return teacher;
 };
+
+export const getClassSubjectsByTeacher = async (teacherId: string) => {
+  const classSubjects = await fetchRequest(`/class-subject/teacher/${teacherId}`, {
+    method: "GET",
+  });
+
+  return classSubjects;
+};

@@ -22,6 +22,7 @@ import StudentPage from "../StudentPage";
 import Content from "../Content/Content";
 import NotFound from "../NotFound";
 import QuestionnaireAnswerPage from "../../pages/QuestionnaireAnswerPage/QuestionnaireAnswerPage";
+import TeacherPage from "../../pages/TeacherPage";
 import GoalPage from "../GoalPage";
 import { ClassSubjectsTable } from "../ClassSubjectsTable";
 import { ClassSubjectForm } from "../Forms/ClassSubjectForm/ClassSubjectForm";
@@ -76,6 +77,7 @@ export const App: React.FC = ({}) => {
                     element={<QuestionnaireAnswerPage />}
                   />
                   <Route path="/student/:id" element={<StudentPage />} />
+                  <Route path="/teacher/:id" element={<TeacherPage />} />
                   <Route
                     path="/student/:studentId/goal"
                     element={<GoalPage />}

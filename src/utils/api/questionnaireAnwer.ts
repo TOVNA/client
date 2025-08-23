@@ -42,3 +42,12 @@ export const getQuestionById = async (id: string | undefined) => {
 
   return null;
 };
+
+export const getQuestionnaireAnswersByTeacherId = async (teacherId: string) => {
+  if (teacherId) {
+    return await fetchRequest(`/questionnaire-answer/by-teacher/${teacherId}`, {
+      method: "GET",
+    });
+  }
+  return null;
+};

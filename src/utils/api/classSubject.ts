@@ -21,6 +21,13 @@ export const getAllClassSubjects = async () => {
   return classes;
 };
 
+export const getClassSubjectsByTeacher = async (teacherId: string) => {
+  const classSubjects = await fetchRequest(`/class-subjects/teacher/${teacherId}`, {
+    method: "GET",
+  });
+
+  return classSubjects;
+};
 
 export const createClassSubject = async (data: ClassSubjectPayload) => {
   const createdClassSubject = await fetchRequest(`/class-subject`, {

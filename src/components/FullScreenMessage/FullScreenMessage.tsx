@@ -3,7 +3,7 @@ import styles from "./FullScreenMessage.module.css";
 
 interface FullScreenMessageProps {
   title: string;
-  message: string;
+  message?: string;
 }
 
 const FullScreenMessage: React.FC<FullScreenMessageProps> = ({

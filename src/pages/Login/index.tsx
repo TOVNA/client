@@ -23,7 +23,8 @@ const Login = () => {
 
   const { login: loginUser, registerGoogle: registerGoogleUser } = useAuth();
 
-  const onSubmit = (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
     loginUser(data);
   };
 

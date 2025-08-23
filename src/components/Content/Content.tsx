@@ -14,7 +14,7 @@ const COLUMNS: ColDef[] = [
   {
     headerName: "שם התלמיד",
     colId: "fullName",
-    cellRenderer: (params) =>
+    cellRenderer: (params: any) =>
       `${params.data.first_name} ${params.data.last_name}`,
     flex: 1,
     resizable: false,
@@ -22,7 +22,7 @@ const COLUMNS: ColDef[] = [
   {
     headerName: "תאריך לידה",
     colId: "birthDate",
-    cellRenderer: (params) =>
+    cellRenderer: (params: any) =>
       new Date(params.data.birth_date).toLocaleDateString("he-IL"),
     flex: 1,
     resizable: false,

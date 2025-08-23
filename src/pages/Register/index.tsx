@@ -24,7 +24,8 @@ const Register = () => {
 
   const { register: registerUser } = useAuth();
 
-  const onSubmit = async (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = async (data: any) => {
     await registerUser({
       ...data,
       first_name: data.firstName,

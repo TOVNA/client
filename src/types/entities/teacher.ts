@@ -1,8 +1,8 @@
-import { UserEntity } from "./user";
+import { UserData, UserEntity } from "./user";
 
 export interface Teacher {
   _id: string;
-  userId: UserEntity;
+  userId: UserEntity & Pick<UserData, "email">;
   types: TeacherType[];
 }
 

@@ -52,7 +52,7 @@ const StudentPage = () => {
   }, [student, navigate]);
 
   useEffect(() => {
-    if (error?.status === 404) {
+    if (error && typeof (error as any).status === "number" && (error as any).status === 404) {
       navigate("/not-found");
     }
   }, [error, navigate]);

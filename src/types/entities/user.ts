@@ -8,9 +8,7 @@ export interface UserEntity {
   _id: string;
   first_name: string;
   last_name: string;
-  user_name: string;
   role: UserRole;
-  image: string;
 }
 
 export interface UserData extends UserEntity {

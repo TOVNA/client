@@ -1,8 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
 
+const backend_url = import.meta.env.VITE_BACKEND_URL;
+
 // TODO server url to env
 export const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: backend_url,
   headers: {
     "Content-Type": "application/json",
   },

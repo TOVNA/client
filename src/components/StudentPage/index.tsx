@@ -128,58 +128,60 @@ const StudentPage = () => {
           הרץ עיבוד שאלונים
         </button>
       </div>
-      <div className={Style.details}>
-        {student?.birth_date && (
-          <div className={Style.studentInfo}>
-            <div className={Style.info}>
-              <div className={Style.infoItem}>
-                <h6>תאריך לידה:</h6>
-                <span>{studentBirthDate.toLocaleDateString("he-IL")}</span>
-              </div>
-              <div className={Style.infoItem}>
-                <h6>גיל:</h6>
-                <span>{calculateAgeDecimal(studentBirthDate)}</span>
-              </div>
-              <div className={Style.infoItem}>
-                <h6>כיתה:</h6>
-                <span>{studentClass}</span>
+      <div className={Style.scrollWrapper}>
+        <div className={Style.details}>
+          {student?.birth_date && (
+            <div className={Style.studentInfo}>
+              <div className={Style.info}>
+                <div className={Style.infoItem}>
+                  <h6>תאריך לידה:</h6>
+                  <span>{studentBirthDate.toLocaleDateString("he-IL")}</span>
+                </div>
+                <div className={Style.infoItem}>
+                  <h6>גיל:</h6>
+                  <span>{calculateAgeDecimal(studentBirthDate)}</span>
+                </div>
+                <div className={Style.infoItem}>
+                  <h6>כיתה:</h6>
+                  <span>{studentClass}</span>
+                </div>
               </div>
             </div>
+          )}
+        </div>
+        {studentSummary && (
+          <Card className={Style.cardPointerDefault}>
+            <div className={Style.summary}>{studentSummary}</div>
+          </Card>
+        )}
+        <Card onClick={handleFillNewStudentFeedback}>
+          <div className={Style.cardHeader}>
+            מילוי חוות דעת על התלמיד
+            <img
+              src={plusIcon}
+              alt="add-questionnaire-button"
+              className={Style.icon}
+            />
           </div>
+        </Card>
+        <Card onClick={() => navigate("goal")}>
+          <div className={Style.cardHeader}>
+            מטרות
+            <img src={plusIcon} alt="add-goal-button" className={Style.icon} />
+          </div>
+        </Card>
+        <div className={Style.goalsContainer}>
+          {goals ? goals.map((goal) => <GoalCard goal={goal} />) : "ללא מטרות"}
+        </div>
+        {student && <QuestionnaireAnswersTable studentId={student._id} />}
+        {user?.role === UserRole.HOMEROOM && (
+          <Dashboard
+            studentStatus={snapshot}
+            studentGrades={grades}
+            isLoading={isSnapshotLoading || isGradesLoading}
+          />
         )}
       </div>
-      {studentSummary && (
-        <Card className={Style.cardPointerDefault}>
-          <div className={Style.summary}>{studentSummary}</div>
-        </Card>
-      )}
-      <Card onClick={handleFillNewStudentFeedback}>
-        <div className={Style.cardHeader}>
-          מילוי חוות דעת על התלמיד
-          <img
-            src={plusIcon}
-            alt="add-questionnaire-button"
-            className={Style.icon}
-          />
-        </div>
-      </Card>
-      <Card onClick={() => navigate("goal")}>
-        <div className={Style.cardHeader}>
-          מטרות
-          <img src={plusIcon} alt="add-goal-button" className={Style.icon} />
-        </div>
-      </Card>
-      <div className={Style.goalsContainer}>
-        {goals ? goals.map((goal) => <GoalCard goal={goal} />) : "ללא מטרות"}
-      </div>
-      {student && <QuestionnaireAnswersTable studentId={student._id} />}
-      {user?.role === UserRole.HOMEROOM && (
-        <Dashboard
-          studentStatus={snapshot}
-          studentGrades={grades}
-          isLoading={isSnapshotLoading || isGradesLoading}
-        />
-      )}
     </>
   );
 };

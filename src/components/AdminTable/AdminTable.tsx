@@ -43,6 +43,9 @@ export const AdminTable: React.FC<AdminTableProps> = ({
           loadingOverlayComponent={LoadingSpinner}
           theme={tableTheme}
           rowData={rowsData}
+          noRowsOverlayComponent={() => (
+            <div style={{ textAlign: "center" }}>ללא מידע</div>
+          )}
           columnDefs={columns}
           domLayout="autoHeight"
           defaultColDef={{

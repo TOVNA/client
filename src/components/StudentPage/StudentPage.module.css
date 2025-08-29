@@ -83,9 +83,10 @@
   padding: 0.25rem 0.5rem;
   font-size: 1rem;
   border-radius: 1rem;
+  margin: 0rem 0.1rem;
 }
 
-.processQuestionnairesButton:active:not(:disabled) {
+.processQuestionnairesButton:hover:not(:disabled) {
   background-color: rgba(0, 0, 0, 0.15);
 }
 

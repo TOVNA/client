@@ -25,6 +25,8 @@ export const useRefetchQueries = () => {
     refetchQuery([QUERY_KEYS.STRATEGIES_BY_GOAL_ID(goalId)]);
   const refetchStudentSnapshot = (studentId: Student["_id"]) =>
     refetchQuery([QUERY_KEYS.STUDNET_SNAPSHOT(studentId)]);
+  const refetchStudentGrades = (studentId: Student["_id"]) =>
+    refetchQuery([QUERY_KEYS.GRADES_BY_STUDENT_ID(studentId)]);
 
   return {
     refetchUserById,
@@ -37,5 +39,6 @@ export const useRefetchQueries = () => {
     refetchStrategiesByGoal,
     refetchStudentSnapshot,
     refetchClassSubjects,
+    refetchStudentGrades,
   };
 };

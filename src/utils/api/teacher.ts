@@ -67,3 +67,11 @@ export const getClassSubjectsByTeacher = async (teacherId: string) => {
 
   return classSubjects;
 };
+
+export const getHomeroomClassesByTeacher = async (teacherId: string) => {
+  const homeroomClasses = await fetchRequest(`/school-class/homeroomTeacher/${teacherId}`, {
+    method: "GET",
+  });
+
+  return homeroomClasses;
+};

@@ -12,6 +12,8 @@ export const QUERY_KEYS = {
   CLASS_BY_ID: (id: string) => `class-${id}`,
   CLASS_SUBJECTS: "class-subjects",
   CLASS_SUBJECT_BY_ID: (id: string) => `class-subjects-${id}`,
+  HOMEROOM_CLASSES: "homeroom-classes",
+  HOMEROOM_CLASSES_BY_TEACHER_ID: (id: string) => `homeroom-classes-${id}`,
   STUDENTS: "students",
   STUDENTS_BY_CLASS_ID: (id: string) => `students-${id}`,
   GOALS_BY_STUDENT_ID: (id: string) => `goals-student-${id}`,

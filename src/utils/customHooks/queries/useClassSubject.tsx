@@ -4,10 +4,10 @@ import { getClassSubjectsByTeacher } from "../../api/teacher";
 import { getAllClassSubjects } from "../../api/classSubject";
 import { ClassSubject } from "../../../types/entities/classSubject";
 
-export const useClassSubject = (classId?: string) => {
+export const useClassSubject = (teacherId?: string) => {
   return useQuery<ClassSubject[]>(
-    [QUERY_KEYS.SUBJECT_CLASS, classId && QUERY_KEYS.SUBJECT_CLASS_BY_ID(classId)],
-    () => (classId ? getClassSubjectsByTeacher(classId) : getAllClassSubjects()),
+    [QUERY_KEYS.SUBJECT_CLASS, teacherId && QUERY_KEYS.SUBJECT_CLASS_BY_ID(teacherId)],
+    () => (teacherId ? getClassSubjectsByTeacher(teacherId) : getAllClassSubjects()),
     {
       keepPreviousData: true,
     }

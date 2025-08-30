@@ -26,6 +26,7 @@ import TeacherPage from "../../pages/TeacherPage";
 import GoalPage from "../GoalPage";
 import { ClassSubjectsTable } from "../ClassSubjectsTable";
 import { ClassSubjectForm } from "../Forms/ClassSubjectForm/ClassSubjectForm";
+import { GradeForm } from "../Forms/GradeForm/GradeForm";
 
 export const App: React.FC = ({}) => {
   // const { isAdmin, user } = useAuth();
@@ -72,6 +73,7 @@ export const App: React.FC = ({}) => {
                 <Route path="/" element={<MainPage />}>
                   <Route path="/" element={<Content />} />
                   <Route path="/feedback" element={<QuestionnairePage />} />
+                  <Route path="/grade" element={<GradeForm />} />
                   <Route
                     path="/feedback/:id"
                     element={<QuestionnaireAnswerPage />}

@@ -14,3 +14,21 @@ export const getGradesByStudentId = async (studentId: string | undefined) => {
 
   return null;
 };
+
+interface Grade {
+  studentId: string;
+  teacherId: string;
+  classSubjectId: string;
+  score: number;
+  type: string;
+  description: string | null;
+}
+
+export const createGrade = async (data: Grade) => {
+  const grade = await fetchRequest(`/grade`, {
+    method: "POST",
+    body: JSON.stringify({ ...data, date: new Date() }),
+  });
+
+  return grade;
+};

@@ -5,6 +5,7 @@ import styles from "./Register.module.css";
 import { useAuth } from "../../components/AuthContext";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { UserRole } from "../../types/entities/user";
 
 const schema = z.object({
   email: z.string().email("כתובת אימייל לא תקינה"),
@@ -29,6 +30,7 @@ const Register = () => {
       ...data,
       first_name: data.firstName,
       last_name: data.lastName,
+      role: UserRole.TEACHER
     });
   };
 

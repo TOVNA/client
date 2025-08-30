@@ -9,7 +9,7 @@ import { useGradeMutations } from "../../../utils/customHooks/mutations/useGrade
 import { useCurrentUserClassSubjectByClass } from "../../../utils/customHooks/useCurrentUserClassSubjectByClass";
 
 const schema = z.object({
-  type: z.string().min(1, "שם פרטי הוא שדה חובה"),
+  type: z.string().min(1, "סוג מטלה הוא שדה חובה"),
   description: z.string(),
   score: z.preprocess(
     (val) => Number(val),
@@ -29,8 +29,6 @@ interface GradeFormInputs {
 export const GradeForm: React.FC = () => {
   const { state } = useLocation();
   const student = state?.student as Student;
-
-  console.log(student);
 
   const {
     register,
@@ -54,7 +52,7 @@ export const GradeForm: React.FC = () => {
       score: Number(data.score),
       studentId: student._id,
       teacherId: currentUserClassSubject.teacherId._id,
-      classSubjectId: currentUserClassSubject._id
+      classSubjectId: currentUserClassSubject._id,
     };
 
     createGradeMutation.mutate(grade);

@@ -7,6 +7,7 @@ import { tableTheme } from "../../setupTable";
 import FullScreenMessage from "../FullScreenMessage/FullScreenMessage";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { useSelectedClassId } from "../SelectedClassContext/SelectedClassContext";
 
 interface ContentProps {}
 
@@ -31,15 +32,16 @@ const COLUMNS: ColDef[] = [
 
 const Content: React.FC<ContentProps> = ({}) => {
   const { data: selectedClass, isLoading } = useSelectedClass();
+  const { selectedClassLabel } = useSelectedClassId();
   const navigate = useNavigate();
 
   const getContentTitle = useCallback(() => {
     if (selectedClass) {
-      return `התלמידים של ${selectedClass.grade}`;
+      return `התלמידים של ${selectedClassLabel}`;
     }
 
     return "בחר כיתה";
-  }, [selectedClass]);
+  }, [selectedClass, selectedClassLabel]);
 
   if (!selectedClass) {
     return (

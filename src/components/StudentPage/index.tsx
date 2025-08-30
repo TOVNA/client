@@ -19,6 +19,7 @@ import { UserRole } from "../../types/entities/user";
 import Dashboard from "../../pages/Dashboard/Dashboard";
 import { useStudentGradesByStudentId } from "../../utils/customHooks/queries/useStudentGrades";
 import QuestionnaireAnswersTable from "../QuestionnaireAnswersTable/QuestionnaireAnswerTable";
+import { useCurrentUserClassSubjectByClass } from "../../utils/customHooks/useCurrentUserClassSubjectByClass";
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -30,6 +31,11 @@ const StudentPage = () => {
   const { data: goals } = useGoalsByStudent(id);
   const { data: grades, isLoading: isGradesLoading } =
     useStudentGradesByStudentId(id);
+  const { user } = useAuth();
+  const { currentUserClassSubject } = useCurrentUserClassSubjectByClass(
+    student?.class?._id
+  );
+
   const navigate = useNavigate();
   const studentBirthDate = new Date(student?.birth_date || "");
   const [isProcessQuestionnairesDisabled, setIsProcessQuestionnairesDisabled] =
@@ -40,13 +46,20 @@ const StudentPage = () => {
   const { generateStudentSnapshotMutation } = useStudentMutations();
   const currentStudentProcessQuestionnariesKey =
     LOCAL_STORAGE_KEYS.PROCESS_QUESTIONNAIRES_TIME_BY_STUDENT(id || "");
-  const { user } = useAuth();
 
   const handleFillNewStudentFeedback = useCallback(() => {
     navigate("/feedback", {
       state: {
         studentName: student?.first_name + " " + student?.last_name,
         studentId: student?._id,
+      },
+    });
+  }, [student, navigate]);
+
+  const handleFillNewStudentGrade = useCallback(() => {
+    navigate("/grade", {
+      state: {
+        student,
       },
     });
   }, [student, navigate]);
@@ -120,13 +133,24 @@ const StudentPage = () => {
             />
           )}
         </div>
-        <button
-          className={Style.processQuestionnairesButton}
-          disabled={isProcessQuestionnairesDisabled}
-          onClick={handleProcessQuestionnariesClick}
-        >
-          הרץ עיבוד שאלונים
-        </button>
+        <div>
+          {currentUserClassSubject && (
+            <button
+              className={Style.processQuestionnairesButton}
+              onClick={handleFillNewStudentGrade}
+            >
+              הוסף ציון
+            </button>
+          )}
+
+          <button
+            className={Style.processQuestionnairesButton}
+            disabled={isProcessQuestionnairesDisabled}
+            onClick={handleProcessQuestionnariesClick}
+          >
+            הרץ עיבוד שאלונים
+          </button>
+        </div>
       </div>
       <div className={Style.scrollWrapper}>
         <div className={Style.details}>
@@ -174,7 +198,7 @@ const StudentPage = () => {
           {goals ? goals.map((goal) => <GoalCard goal={goal} />) : "ללא מטרות"}
         </div>
         {student && <QuestionnaireAnswersTable studentId={student._id} />}
-        {user?.role === UserRole.HOMEROOM && (
+      {user?.role === UserRole.HOMEROOM && (
           <Dashboard
             studentStatus={snapshot}
             studentGrades={grades}

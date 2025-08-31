@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -14,6 +15,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Card } from "../../components/Card/Card";
+import Select from "react-select";
 import { StudentSnapshot } from "../../types/entities/student";
 import { Grade } from "../../types/entities/grade";
 
@@ -28,9 +30,17 @@ const Dashboard = ({
   studentGrades = [],
   isLoading,
 }: DashboardData) => {
+
+  const [selectedSubject, setSelectedSubject] = React.useState<string | null>(null);
+
   if (isLoading || studentStatus.length === 0 || studentGrades.length === 0) {
     return null;
   }
+
+  // Get unique subjects from grades
+  const subjectOptions = Array.from(
+    new Set(studentGrades.map((g) => g.subject))
+  ).map((subject) => ({ value: subject, label: subject }));
 
   // Get the most updated object in the array using updatedAt
   const mostUpdatedStudent = studentStatus[studentStatus.length - 1];
@@ -45,8 +55,12 @@ const Dashboard = ({
   ];
   const COLORS = ["#0088FE", "#e4e4e4"];
 
-  // Build date in format dd:mm:yyyy to be the x axis
-  const lineData = studentGrades.map((grade) => ({
+  // Build date in format dd:mm:yyyy to be the x axis, filtered by subject
+  const filteredGrades = selectedSubject
+    ? studentGrades.filter((grade) => grade.subject === selectedSubject)
+    : studentGrades;
+
+  const lineData = filteredGrades.map((grade) => ({
     time: new Date(grade.date).toLocaleDateString("he-IL"),
     ציון: grade.score,
   }));
@@ -108,9 +122,20 @@ const Dashboard = ({
         ))}
       </Card>
 
-      {/* Line Chart */}
+      {/* Line Chart with Subject Filter */}
       <Card style={{ cursor: "default" }}>
-        <h3>ציונים לאורך זמן</h3>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <h3 style={{ margin: 0 }}>ציונים לאורך זמן</h3>
+          <div style={{ minWidth: 200 }}>
+            <Select
+              options={subjectOptions}
+              isClearable
+              placeholder="בחר מקצוע"
+              value={subjectOptions.find((opt) => opt.value === selectedSubject) || null}
+              onChange={(option) => setSelectedSubject(option ? option.value : null)}
+            />
+          </div>
+        </div>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
             data={lineData}

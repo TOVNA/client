@@ -11,6 +11,8 @@ import { useTeacherMutations } from "../../../utils/customHooks/mutations/useTea
 import { useUserMutations } from "../../../utils/customHooks/mutations/useUserMutations";
 import { UserRole } from "../../../types/entities/user";
 
+const newUserPassword = import.meta.env.VITE_NEW_USER_PASSWORD_POSTFIX;
+
 const schemaConfig = (id?: string) =>
   z.object({
     firstName: z.string().min(1, "שם פרטי הוא שדה חובה"),
@@ -65,7 +67,6 @@ export const TeacherForm: React.FC = () => {
 
   const {
     updateTeacherMutation: { mutate: updateTeacher },
-    createTeacherMutation: { mutate: createTeacher },
   } = useTeacherMutations();
   const {
     createUserMutation: { mutateAsync: createUser },
@@ -82,21 +83,17 @@ export const TeacherForm: React.FC = () => {
           },
         });
       } else {
-        const userId = await createUser({
+        await createUser({
           first_name: data.firstName,
           last_name: data.lastName,
           email: data.email,
-          password: Math.random().toString(36).slice(-8),
+          password: data.firstName + newUserPassword,
           role: data.role,
-        });
-        createTeacher({
-          userId: userId._id,
-          types: data.types,
         });
       }
       navigate("/admin/teachers");
     },
-    [id, updateTeacher, createUser, createTeacher, navigate]
+    [id, updateTeacher, createUser, navigate]
   );
 
   useEffect(() => {

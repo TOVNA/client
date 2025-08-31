@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/auth";
-import { UserData, UserRegisterData } from "../../../types/entities/user";
+import { UserData, UserRegisterData, UserTeacherData } from "../../../types/entities/user";
 
-interface LoginData extends UserData {
+interface LoginData extends UserData, UserTeacherData {
   accessToken: string;
   refreshToken: string;
 }

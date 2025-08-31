@@ -11,6 +11,7 @@ import {
   UserData,
   UserRegisterData,
   UserRole,
+  UserTeacherData,
 } from "../../types/entities/user";
 import { useNavigate } from "react-router-dom";
 import { useRegister } from "../../utils/customHooks/mutations/useRegister";
@@ -21,7 +22,7 @@ import { useRegisterGoogle } from "../../utils/customHooks/mutations/useRegister
 import toast from "react-hot-toast";
 
 interface AuthContextType {
-  user: UserData | null;
+  user: UserData & UserTeacherData | null;
   token: string;
   isAdmin: boolean;
   register: (user: UserRegisterData) => void;
@@ -35,7 +36,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<UserData & UserTeacherData | null>(null);
   const [token, setToken] = useState(localStorage.getItem("accessToken") || "");
   const navigate = useNavigate();
   const { mutateAsync: registerMutation } = useRegister();

@@ -13,8 +13,8 @@ const Sidebar = () => {
   const { selectedUniqueId, setSelectedClassData } = useSelectedClassId();
   const { setSelectedStudentId } = useSelectedStudentId();
   const { user } = useAuth();
-  const { data: subjectClasses = [] } = useClassSubject(user?._id);
-  const { data: homeroomClasses = [] } = useHomeroomClasses(user?._id);
+  const { data: subjectClasses = [] } = useClassSubject(user?.teacher_id);
+  const { data: homeroomClasses = [] } = useHomeroomClasses(user?.teacher_id);
   const navigate = useNavigate();
 
   const classesMenu = useMemo(() => {

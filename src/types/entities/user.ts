@@ -20,3 +20,7 @@ export interface UserRegisterData extends Omit<UserEntity, "_id"> {
   email: string;
   password: string;
 }
+
+export interface UserTeacherData {
+  teacher_id: string;
+}

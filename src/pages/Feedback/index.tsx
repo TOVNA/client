@@ -38,7 +38,7 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
   const studentId = state?.studentId;
   const studentName = state?.studentName;
   const navigate = useNavigate();
-
+  
   const { data: studentData } = useStudentById(studentId);
   const { data: studentClass } = useClasses(studentData?.class?._id);
   const { data: classSubjects } = useClassSubjects();
@@ -51,8 +51,7 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
 
   const teacherType = useMemo(() => {
     if (
-      (studentClass as Class)?.homeroomTeacherId?._id === (user as any)?.userId
-    )
+      (studentClass as Class)?.homeroomTeacherId?._id === (user as any)?._id)
       return UserRole.HOMEROOM;
 
     const subjectTeacher = (classSubjects as ClassSubject[])
@@ -62,13 +61,13 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
       )
       .find(
         (classSubject) =>
-          classSubject?.teacherId?.userId?._id === (user as any)?.userId
+          classSubject?.teacherId?._id === (user as any)?.teacher_id
       );
 
     if (subjectTeacher) {
       return UserRole.TEACHER;
     }
-  }, [user, studentData, classSubjects, studentClass]);
+  }, [user, classSubjects, studentClass]);
 
   const { data, isLoading, isError } = useQuestionnaireByTeacherType(
     teacherType || UserRole.TEACHER

@@ -14,8 +14,8 @@ const Navbar = () => {
   const location = useLocation();
 
   const openUserProfile = useCallback(() => {
-    navigate(`/teacher/${user?._id}`);
-  }, [navigate, user?._id]);
+    navigate(`/teacher/${user?.teacher_id}`);
+  }, [navigate, user?.teacher_id]);
 
   const goToMainPage = useCallback(() => {
     navigate('/');

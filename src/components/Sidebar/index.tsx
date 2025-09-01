@@ -14,7 +14,7 @@ const Sidebar = () => {
   const { setSelectedStudentId } = useSelectedStudentId();
   const { user } = useAuth();
   const { data: subjectClasses = [] } = useClassSubject(user?.teacher_id);
-  const { data: homeroomClasses = [] } = useHomeroomClasses(user?.teacher_id);
+  const { data: homeroomClasses = [] } = useHomeroomClasses(user?._id);
   const navigate = useNavigate();
 
   const classesMenu = useMemo(() => {

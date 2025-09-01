@@ -36,13 +36,14 @@ const Navbar = () => {
         <div className={styles.navbar}>
           <span className={styles.navbarTitle} onClick={goToMainPage}>תובנ"ה</span>
           <div className={styles.navbarButtonContainer}>
-            <NavbarButton iconSrc={UserIcon} onClick={openUserProfile} />
-            {isAdmin && (
+            {isAdmin && (<>
+              <NavbarButton iconSrc={UserIcon} onClick={openUserProfile} />
               <NavbarButton
                 iconSrc={manageIcon}
                 onClick={onAdminButtonClick}
                 name={isInAdminPages ? "חזרה למערכת" : "ניהול המערכת"}
               />
+            </>
             )}
             <NavbarButton iconSrc={LogoutIcon} onClick={logout} name="התנתק" />
           </div>

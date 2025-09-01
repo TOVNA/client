@@ -91,7 +91,7 @@ export const ClassForm: React.FC = () => {
     return homeroomTeacherId
       ? (teachers as Teacher[])
           ?.map((teacher) => ({
-            value: teacher?._id,
+            value: teacher.userId?._id,
             label: `${teacher.userId?.first_name} ${teacher.userId?.last_name}`,
           }))
           .find((option) => option.value === homeroomTeacherId)
@@ -127,7 +127,7 @@ export const ClassForm: React.FC = () => {
               <Select
                 inputId="homeroomTeacherId"
                 options={(teachers as Teacher[])?.map((teacher) => ({
-                  value: teacher?._id,
+                  value: teacher.userId?._id,
                   label: `${teacher.userId?.first_name} ${teacher.userId?.last_name}`,
                 }))}
                 placeholder="בחר מורה מחנך"

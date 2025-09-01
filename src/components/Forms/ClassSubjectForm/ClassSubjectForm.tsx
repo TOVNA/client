@@ -98,7 +98,7 @@ export const ClassSubjectForm: React.FC = () => {
     <div className={Style.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={Style.form}>
         <h2 className={Style.title}>
-          {id ? `עריכת מורה מחנך עם מזהה ${id}` : "יצירת מורה מחנך"}
+          {id ? `עריכת מורה מקצועי עם מזהה ${id}` : "יצירת מורה מקצועי"}
         </h2>
         <div className={Style.inputGroup}>
           <label htmlFor="subject">מקצוע</label>

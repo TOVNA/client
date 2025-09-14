@@ -10,4 +10,5 @@
   right: 300px;
   left: 16px;
   bottom: 16px;
+  overflow-y: scroll;
 }

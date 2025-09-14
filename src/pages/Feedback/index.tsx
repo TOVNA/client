@@ -102,7 +102,7 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
     const responseData = {
       answers: questionnaireAnswers,
       questionnaireId: data?._id as string,
-      teacherId: user?._id as string,
+      teacherId: user?.teacher_id as string,
       studentId: studentId,
     };
 
